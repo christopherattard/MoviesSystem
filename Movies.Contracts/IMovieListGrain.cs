@@ -12,5 +12,6 @@ namespace Movies.Contracts
 		Task<List<MovieInfo>> GetAllMovies();
 		Task<List<MovieInfo>> GetTopMovies(int topCount);
 		Task<List<MovieInfo>> GetMoviesByGenre(List<string> genre);
+		Task<List<MovieInfo>> GetMoviesBySearch(string searchFilter);
 	}
 }

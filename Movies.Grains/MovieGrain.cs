@@ -11,7 +11,9 @@ namespace Movies.Grains
 	[StorageProvider(ProviderName = "Default")]
 	public class MovieGrain : Grain<MovieState>, IMovieGrain
 	{
-		async Task<MovieState> IMovieGrain.Update(MovieState movieState) 
+		public Task Delete(string movieId) => throw new NotImplementedException();
+
+		public async Task<MovieState> Update(MovieState movieState) 
 		{
 			string key = this.GetPrimaryKeyString();
 			Console.WriteLine($"-- MovieGrain Update() for movie with key #{key} and name {movieState.Name} --");
@@ -21,16 +23,26 @@ namespace Movies.Grains
 			State.Key = movieState.Key;
 			State.Name = movieState.Name;
 			State.Description = movieState.Description;
-			State.Genres = movieState.Genres;
+			
 			State.Rate = movieState.Rate;
 			State.Length = movieState.Length;
 			State.Img = movieState.Img;
+
+			// Clean the genres and store them
+			List<string> cleanGenres = new List<string>();
+			foreach (var genre in movieState.Genres)
+			{
+				if (string.IsNullOrWhiteSpace(genre))
+				{
+					cleanGenres.Add(genre.Trim());
+				}
+			}
+			State.Genres = cleanGenres;
 
 			Console.WriteLine($"-- MovieGrain Update() about to write WriteStateAsync --");
 			await base.WriteStateAsync();
 
 			// update movie list about this new movie
-
 			MovieInfo movieInfo = new MovieInfo
 			{
 				Key = movieState.Key,

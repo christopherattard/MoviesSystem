@@ -124,5 +124,32 @@ namespace Movies.Grains
 			}
 			return resultList;
 		}
+
+		public async Task<List<MovieInfo>> GetMoviesBySearch(string searchFilter)
+		{
+			Console.WriteLine($"-- MovieListGrain.GetMoviesBySearch({searchFilter}) --");
+
+			if (State.MovieList == null)
+			{
+				State.MovieList = new List<MovieInfo>();
+			}
+
+			if (State.MovieList.Count == 0)
+			{
+				return State.MovieList;
+			}
+
+			List<MovieInfo> resultList = new List<MovieInfo>();
+
+			foreach (MovieInfo movieInfo in State.MovieList)
+			{
+				if (movieInfo.Key.IndexOf(searchFilter) > -1)
+				{
+					resultList.Add(movieInfo);
+				}
+				
+			}
+			return resultList;
+		}
 	}
 }
