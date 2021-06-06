@@ -1,10 +1,11 @@
 ﻿using Movies.Models;
+using Orleans;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Movies.Contracts
 {
-	public interface IMovieListGrain
+	public interface IMovieListGrain : IGrainWithStringKey
 	{
 		Task AddMovie(MovieInfo movieInfo);
 

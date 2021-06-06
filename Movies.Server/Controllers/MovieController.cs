@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.Contracts;
+using Movies.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +22,14 @@ namespace Movies.Server.Controllers
 			return View();
 		}
 
-		[HttpGet("{id}")]
-		public async Task<SampleDataModel> Get(string id)
+		[HttpPost]
+		public async Task<MovieState> CreateMovie([FromBody] MovieState movieState)
 		{
-			var result = await _client.Get(id).ConfigureAwait(false);
+			Console.WriteLine("-- POST api/movie: create movie");
+
+			var result = await _client.CreateMovie(movieState).ConfigureAwait(false);
 			return result;
-		}
+		}		
 
 		// List Top 5 movies
 

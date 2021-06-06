@@ -1,4 +1,5 @@
 ﻿using Movies.Contracts;
+using Movies.Models;
 using Orleans;
 using Orleans.Providers;
 using System.Threading.Tasks;

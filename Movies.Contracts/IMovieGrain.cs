@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Movies.Models;
+using Orleans;
+using System.Threading.Tasks;
 
 namespace Movies.Contracts
 {
-	public interface IMovieGrain
+	public interface IMovieGrain : IGrainWithStringKey
 	{
-
+		Task<MovieState> Update(MovieState movieState);
 	}
 }

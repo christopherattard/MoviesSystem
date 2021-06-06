@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Movies.Grains
 {
-	[StorageProvider(ProviderName = "grain-store")]
+	[StorageProvider(ProviderName = "Default")]
 	public class MovieListGrain : Grain<MovieListState>, IMovieListGrain
 	{
 		public async Task AddMovie(MovieInfo movieInfo)
 		{
-			Console.WriteLine($"-- MovieListGrain AddMovie() for movie #{movieInfo.Id} [{movieInfo.Name}] --");
+			Console.WriteLine($"-- MovieListGrain AddMovie() for movie [{movieInfo.Name}] with key #{movieInfo.Key} --");
 
 			// ensure movie list is not null
 			if (State.MovieList == null)
@@ -22,7 +22,7 @@ namespace Movies.Grains
 			}
 
 			// check to see if movie already exists, and if so, removed, before inserting new movie info
-			int index = State.MovieList.FindIndex(movie => movie.Id == movieInfo.Id);
+			int index = State.MovieList.FindIndex(movie => movie.Key == movieInfo.Key);
 			if (index >= 0)
 			{
 				State.MovieList.RemoveAt(index);
@@ -31,16 +31,18 @@ namespace Movies.Grains
 			// add this event key to our active list
 			State.MovieList.Add(movieInfo);
 
-			Console.WriteLine($"-- MovieListGrain.AddMovie() - call WriteStateAsync for new movie #{movieInfo.Id} --");
-			return base.WriteStateAsync();			
+			Console.WriteLine($"-- MovieListGrain.AddMovie() - call WriteStateAsync for new movie with key #{movieInfo.Key} --");
+			await base.WriteStateAsync();
+			
+			return;
 		}
 
-		public async Task DeleteMovie(string movieId)
+		public async Task DeleteMovie(string movieKey)
 		{
-			Console.WriteLine($"-- MovieListGrain.DeleteMovie() for movie #{movieId} --");
+			Console.WriteLine($"-- MovieListGrain.DeleteMovie() for movie with key #{movieKey} --");
 
 			// check args
-			if (String.IsNullOrWhiteSpace(movieId))
+			if (string.IsNullOrWhiteSpace(movieKey))
 			{
 				return;
 			}
@@ -51,12 +53,12 @@ namespace Movies.Grains
 			}
 
 			// delete this event key from our active list if it exists 
-			int index = State.MovieList.FindIndex(movie => movie.Id == movieId);
+			int index = State.MovieList.FindIndex(movie => movie.Key == movieKey);
 			if (index >= 0)
 			{
 				State.MovieList.RemoveAt(index);  // remove it
 
-				Console.WriteLine($"** -- MovieListGrain.DeleteMovie() - call WriteStateAsync for deleted movie #{movieId} --");
+				Console.WriteLine($"** -- MovieListGrain.DeleteMovie() - call WriteStateAsync for deleted movie with key #{movieKey} --");
 				await base.WriteStateAsync();
 			}
 

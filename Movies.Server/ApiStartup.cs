@@ -52,6 +52,7 @@ namespace Movies.Server
 
 			services.AddAppClients();
 			services.AddAppGraphQL();
+			services.AddHttpContextAccessor();
 			services.AddControllers()
 			.AddNewtonsoftJson();
 		}

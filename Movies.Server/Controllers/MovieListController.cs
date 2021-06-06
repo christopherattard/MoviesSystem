@@ -8,31 +8,27 @@ using System.Threading.Tasks;
 
 namespace Movies.Server.Controllers
 {
+	[Route("api/[controller]")]
 	public class MovieListController : Controller
 	{ 
 		private readonly IMovieListGrainClient _client;
-
-		[Route("api/[controller]")]
+		
 		public MovieListController(IMovieListGrainClient client)
 		{
 			_client = client;
 		}
 
-		public IActionResult Index()
+		/*public IActionResult Index()
 		{
 			return View();
-		}
+		}*/
 
 		[HttpGet("")]
-		public async Task<List<MovieInfo>> GetAllMovies()
+		public async Task<List<MovieInfo>> ListMovies()
 		{
-			//EventApiData[] list = new EventApiData[0]; 
+			Console.WriteLine("-- GET api/movielist: get all movies");
 
-			logger.LogInformation($"-- GET api/movielist: get all movies");
-
-			var movieListGrain = _client.GetGrain<IMovieListGrain>(Guid.Empty);
-			EventApiData[] list = await movieListGrain.ListEvents("");
-
+			List<MovieInfo> list = await _client.ListMovies();
 			return list;
 		}
 	}

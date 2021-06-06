@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Contracts;
+using Movies.Models;
 using System.Threading.Tasks;
 
 namespace Movies.Server.Controllers

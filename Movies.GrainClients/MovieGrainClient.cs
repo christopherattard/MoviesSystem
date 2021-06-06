@@ -10,22 +10,16 @@ namespace Movies.GrainClients
 {
 	public class MovieGrainClient : IMovieGrainClient
 	{
-		private readonly IGrainFactory _grainFactory;
-
+		private readonly IGrainFactory _grainFactory;	
 		public MovieGrainClient(IGrainFactory grainFactory)
 		{
 			_grainFactory = grainFactory;
 		}
 
-		public Task<MovieState> GetAllMovies()
+		public Task<MovieState> CreateMovie(MovieState movieState) 
 		{
-			var grain = _grainFactory.GetGrain<IMovieGrain>(id);
-			return grain.GetAllMovies();
-		}
-		public Task<MovieState> GetTopMovies(int topCount)
-		{
-			var grain = _grainFactory.GetGrain<IMovieGrain>(id);
-			return grain.GetTopMovies(topCount);
+			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);
+			return movieGrain.Update(movieState);
 		}
 	}
 }

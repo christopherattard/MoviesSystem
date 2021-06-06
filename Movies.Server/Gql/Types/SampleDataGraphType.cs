@@ -1,5 +1,6 @@
 ﻿using GraphQL.Types;
 using Movies.Contracts;
+using Movies.Models;
 
 namespace Movies.Server.Gql.Types
 {
