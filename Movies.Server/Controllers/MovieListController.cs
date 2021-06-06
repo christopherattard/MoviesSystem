@@ -18,17 +18,12 @@ namespace Movies.Server.Controllers
 			_client = client;
 		}
 
-		/*public IActionResult Index()
-		{
-			return View();
-		}*/
-
 		[HttpGet("")]
 		public async Task<List<MovieInfo>> ListMovies()
 		{
 			Console.WriteLine("-- GET api/movielist: get all movies");
 
-			List<MovieInfo> list = await _client.ListMovies();
+			List<MovieInfo> list = await _client.GetAllMovies();
 			return list;
 		}
 	}

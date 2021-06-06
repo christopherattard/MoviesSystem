@@ -4,6 +4,7 @@ using Orleans;
 using Orleans.Providers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Movies.Grains
@@ -65,7 +66,7 @@ namespace Movies.Grains
 			return;
 		}
 
-		public async Task<List<MovieInfo>> ListMovies()
+		public async Task<List<MovieInfo>> GetAllMovies()
 		{
 			Console.WriteLine($"-- MovieListGrain.ListMovies() --");
 
@@ -75,6 +76,53 @@ namespace Movies.Grains
 			}
 
 			return State.MovieList;			
+		}
+
+		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
+		{
+			Console.WriteLine($"-- MovieListGrain.ListTopMovies({topCount}) --");
+
+			if (State.MovieList == null)
+			{
+				State.MovieList = new List<MovieInfo>();				
+			}
+
+			if (State.MovieList.Count == 0)
+			{
+				return State.MovieList;
+			}
+
+			List<MovieInfo> resultList = State.MovieList.OrderByDescending(x => x.Rate).Take(topCount).ToList();
+			return resultList;
+		}
+
+		public async Task<List<MovieInfo>> GetMoviesByGenre(List<string> genres)
+		{
+			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({string.Join(",",genres)} --");
+
+			if (State.MovieList == null)
+			{
+				State.MovieList = new List<MovieInfo>();
+			}
+
+			if (State.MovieList.Count == 0)
+			{
+				return State.MovieList;
+			}
+
+			List<MovieInfo> resultList = new List<MovieInfo>();
+
+			foreach (MovieInfo movieInfo in State.MovieList)
+			{
+				foreach (string genre in genres)
+				{
+					if (movieInfo.Genres.Contains(genre))
+					{
+						resultList.Add(movieInfo);
+					}
+				}
+			}
+			return resultList;
 		}
 	}
 }

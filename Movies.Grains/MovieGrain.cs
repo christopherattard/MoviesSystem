@@ -36,6 +36,7 @@ namespace Movies.Grains
 				Key = movieState.Key,
 				Name = movieState.Name,
 				Description = movieState.Description,
+				Genres = movieState.Genres,
 				Rate = movieState.Rate
 			};
 

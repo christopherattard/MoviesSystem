@@ -32,23 +32,22 @@ namespace Movies.GrainClients
 			return grain.DeleteMovie(movieId);
 		}
 
-		public Task<List<MovieInfo>> ListMovies()
+		public Task<List<MovieInfo>> GetAllMovies()
 		{
 			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
-			return grain.ListMovies();
-		}		
-
-		/*public Task<MovieState> GetAllMovies()
-		{
-			var grain = _grainFactory.GetGrain<IMovieGrain>(id);
 			return grain.GetAllMovies();
 		}
-		public Task<MovieState> GetTopMovies(int topCount)
+
+		public Task<List<MovieInfo>> GetTopMovies(int topCount)
 		{
-			var grain = _grainFactory.GetGrain<IMovieGrain>(id);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
 			return grain.GetTopMovies(topCount);
-		}*/
+		}
 
-
+		public Task<List<MovieInfo>> GetMoviesByGenre(List<string> genres)
+		{
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			return grain.GetMoviesByGenre(genres);
+		}
 	}
 }
