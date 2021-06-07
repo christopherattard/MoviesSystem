@@ -6,7 +6,7 @@ namespace Movies.Contracts
 {
 	public interface IMovieGrain : IGrainWithStringKey
 	{
-		Task<MovieState> Update(MovieState movieState);
-		Task Delete(string movieId);
+		Task<MovieApiData> Update(MovieApiData movieApiData);
+		Task<MovieApiData> GetMovieDetails();
 	}
 }

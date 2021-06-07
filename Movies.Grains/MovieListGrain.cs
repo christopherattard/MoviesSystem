@@ -96,9 +96,21 @@ namespace Movies.Grains
 			return resultList;
 		}
 
-		public async Task<List<MovieInfo>> GetMoviesByGenre(List<string> genres)
+		public async Task<List<MovieInfo>> GetMoviesByGenre(string genre)
 		{
-			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({string.Join(",",genres)} --");
+			//Clean up the genre
+			if (string.IsNullOrWhiteSpace(genre))
+			{ 
+				return null;
+			}
+
+			string cleanGenre = genre.Trim().ToLower();
+			if (string.IsNullOrWhiteSpace(cleanGenre))
+			{
+				return null;
+			}
+			
+			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({cleanGenre}) --");			
 
 			if (State.MovieList == null)
 			{
@@ -114,14 +126,12 @@ namespace Movies.Grains
 
 			foreach (MovieInfo movieInfo in State.MovieList)
 			{
-				foreach (string genre in genres)
+				if (movieInfo.Genres.Contains(cleanGenre))
 				{
-					if (movieInfo.Genres.Contains(genre))
-					{
-						resultList.Add(movieInfo);
-					}
-				}
+					resultList.Add(movieInfo);
+				}				
 			}
+
 			return resultList;
 		}
 
@@ -150,6 +160,39 @@ namespace Movies.Grains
 				
 			}
 			return resultList;
+		}
+
+		public async Task<MovieApiData> GetMovieDetails(string movieKey)
+		{
+			Console.WriteLine($"-- MovieListGrain.GetMovieDetails({movieKey}) --");
+			MovieApiData movieApiData = null;
+			
+			if (State.MovieList == null)
+			{
+				State.MovieList = new List<MovieInfo>();
+			}
+
+			if (State.MovieList.Count == 0)
+			{
+				return movieApiData;
+			}
+
+			MovieInfo movieInfo = State.MovieList.Where(x => x.Key == movieKey).SingleOrDefault();
+			if (movieInfo != null)
+			{
+				var movieGrain = GrainFactory.GetGrain<IMovieGrain>(movieKey);
+				movieApiData = await movieGrain.GetMovieDetails();
+				
+				//Copy the Genres from the movieInfo - this could be improved by creating a Genre grain
+				movieApiData.Genres = new List<string>();
+				movieApiData.Genres.AddRange(movieInfo.Genres);
+				return movieApiData;
+			}
+			else
+			{
+				return movieApiData;
+			}
+
 		}
 	}
 }

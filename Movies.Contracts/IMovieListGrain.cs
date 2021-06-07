@@ -11,7 +11,8 @@ namespace Movies.Contracts
 		Task DeleteMovie(string movieId);
 		Task<List<MovieInfo>> GetAllMovies();
 		Task<List<MovieInfo>> GetTopMovies(int topCount);
-		Task<List<MovieInfo>> GetMoviesByGenre(List<string> genre);
+		Task<List<MovieInfo>> GetMoviesByGenre(string genre);
 		Task<List<MovieInfo>> GetMoviesBySearch(string searchFilter);
+		Task<MovieApiData> GetMovieDetails(string movieKey);
 	}
 }

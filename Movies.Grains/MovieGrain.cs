@@ -10,31 +10,29 @@ namespace Movies.Grains
 {
 	[StorageProvider(ProviderName = "Default")]
 	public class MovieGrain : Grain<MovieState>, IMovieGrain
-	{
-		public Task Delete(string movieId) => throw new NotImplementedException();
-
-		public async Task<MovieState> Update(MovieState movieState) 
+	{	
+		public async Task<MovieApiData> Update(MovieApiData movieApiData) 
 		{
 			string key = this.GetPrimaryKeyString();
-			Console.WriteLine($"-- MovieGrain Update() for movie with key #{key} and name {movieState.Name} --");
+			Console.WriteLine($"-- MovieGrain Update() for movie with key #{key} and name {movieApiData.Name} --");
 
 			// update interal grain state
 
-			State.Key = movieState.Key;
-			State.Name = movieState.Name;
-			State.Description = movieState.Description;
+			State.Key = key;
+			State.Name = movieApiData.Name;
+			State.Description = movieApiData.Description;
 			
-			State.Rate = movieState.Rate;
-			State.Length = movieState.Length;
-			State.Img = movieState.Img;
+			State.Rate = movieApiData.Rate;
+			State.Length = movieApiData.Length;
+			State.Img = movieApiData.Img;
 
 			// Clean the genres and store them
 			List<string> cleanGenres = new List<string>();
-			foreach (var genre in movieState.Genres)
+			foreach (var genre in movieApiData.Genres)
 			{
 				if (string.IsNullOrWhiteSpace(genre))
 				{
-					cleanGenres.Add(genre.Trim());
+					cleanGenres.Add(genre.Trim().ToLower());
 				}
 			}
 			State.Genres = cleanGenres;
@@ -45,18 +43,28 @@ namespace Movies.Grains
 			// update movie list about this new movie
 			MovieInfo movieInfo = new MovieInfo
 			{
-				Key = movieState.Key,
-				Name = movieState.Name,
-				Description = movieState.Description,
-				Genres = movieState.Genres,
-				Rate = movieState.Rate
+				Key = movieApiData.Key,
+				Name = movieApiData.Name,
+				Description = movieApiData.Description,
+				Genres = movieApiData.Genres,
+				Rate = movieApiData.Rate
 			};
 
 			var movieListGrain = GrainFactory.GetGrain<IMovieListGrain>("CA");  // the aggregator grain is a singleton - Guid.Empty is convention to indicate this
 																				//await aggregator.DeleteAnEvent(id);  
 			await movieListGrain.AddMovie(movieInfo);
 
-			return State;
+			return movieApiData;
 		}
+
+		public async Task<MovieApiData> GetMovieDetails() => new MovieApiData
+		{
+			Key = State.Key,
+			Description = State.Description,
+			Name = State.Name,				
+			Rate = State.Rate,
+			Length = State.Length,
+			Img = State.Img
+		};		
 	}
 }

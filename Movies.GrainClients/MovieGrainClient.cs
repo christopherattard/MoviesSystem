@@ -16,10 +16,16 @@ namespace Movies.GrainClients
 			_grainFactory = grainFactory;
 		}
 
-		public Task<MovieState> CreateMovie(MovieState movieState) 
+		public Task<MovieApiData> CreateMovie(MovieApiData movieApiData) 
 		{
-			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);
-			return movieGrain.Update(movieState);
+			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieApiData.Key);
+			return movieGrain.Update(movieApiData);
+		}
+
+		public Task<MovieApiData> GetMovieDetails(string movieKey)
+		{
+			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieKey);
+			return movieGrain.GetMovieDetails();
 		}
 	}
 }

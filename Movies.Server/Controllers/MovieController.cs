@@ -15,19 +15,14 @@ namespace Movies.Server.Controllers
 		public MovieController(IMovieGrainClient client)
 		{
 			_client = client;
-		}
-
-		public IActionResult Index()
-		{
-			return View();
-		}
+		}		
 
 		[HttpPost]
-		public async Task<MovieState> CreateMovie([FromBody] MovieState movieState)
+		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData)
 		{
 			Console.WriteLine("-- POST api/movie: create movie");
 
-			var result = await _client.CreateMovie(movieState).ConfigureAwait(false);
+			var result = await _client.CreateMovie(movieApiData).ConfigureAwait(false);
 			return result;
 		}		
 

@@ -19,12 +19,24 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("")]
-		public async Task<List<MovieInfo>> ListMovies()
-		{
-			Console.WriteLine("-- GET api/movielist: get all movies");
-
+		public async Task<List<MovieInfo>> GetAllMovies()
+		{			
 			List<MovieInfo> list = await _client.GetAllMovies();
 			return list;
+		}
+
+		[HttpGet("{movieKey}")]
+		public async Task<MovieApiData> GetMovieDetails(string movieKey)
+		{ 
+			var result = await _client.GetMovieDetails(movieKey).ConfigureAwait(false);
+			return result;			
+		}
+
+		[HttpGet("genre/{genre}")]
+		public async Task<List<MovieInfo>> GetMoviesByGenre(string genre)
+		{		
+			var result = await _client.GetMoviesByGenre(genre).ConfigureAwait(false);
+			return result;
 		}
 	}
 }
