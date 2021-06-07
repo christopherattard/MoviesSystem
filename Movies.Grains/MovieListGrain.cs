@@ -80,7 +80,7 @@ namespace Movies.Grains
 
 		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
 		{
-			Console.WriteLine($"-- MovieListGrain.ListTopMovies({topCount}) --");
+			Console.WriteLine($"-- MovieListGrain.GetTopMovies({topCount}) --");
 
 			if (State.MovieList == null)
 			{

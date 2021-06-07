@@ -25,20 +25,16 @@ namespace Movies.Server.Controllers
 
 			var result = await _client.CreateMovie(movieApiData).ConfigureAwait(false);
 			return result;
+		}
+
+		[HttpPut]
+		public async Task<MovieApiData> UpdateMovie([FromBody] MovieApiData movieApiData)
+		{
+			//Clean the key
+			movieApiData.Key = movieApiData.Key.Trim().ToLower();
+
+			var result = await _client.CreateMovie(movieApiData).ConfigureAwait(false);
+			return result;
 		}		
-
-		// List Top 5 movies
-
-		// List all movies
-
-		// Search for movie/s
-
-		// Filter by Genre
-
-		// Get selected movie details
-
-		// Create movie
-
-		// Update movie
 	}
 }

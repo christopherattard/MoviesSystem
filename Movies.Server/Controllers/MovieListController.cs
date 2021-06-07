@@ -45,5 +45,12 @@ namespace Movies.Server.Controllers
 			var result = await _client.GetMoviesBySearch(search).ConfigureAwait(false);
 			return result;
 		}
+
+		[HttpGet("top/{topCount}")]
+		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
+		{
+			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
+			return result;
+		}
 	}
 }
