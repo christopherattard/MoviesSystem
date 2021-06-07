@@ -27,6 +27,9 @@ namespace Movies.GrainClients
 
 		public Task<MovieApiData> GetMovieDetails(string movieKey)
 		{
+			//Clean the key
+			movieKey = movieKey.Trim().ToLower();
+
 			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieKey);
 			return movieGrain.GetMovieDetails();
 		}
