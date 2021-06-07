@@ -38,5 +38,12 @@ namespace Movies.Server.Controllers
 			var result = await _client.GetMoviesByGenre(genre).ConfigureAwait(false);
 			return result;
 		}
+
+		[HttpGet("search/{search}")]
+		public async Task<List<MovieInfo>> GetMoviesBySearch(string search)
+		{
+			var result = await _client.GetMoviesBySearch(search).ConfigureAwait(false);
+			return result;
+		}
 	}
 }

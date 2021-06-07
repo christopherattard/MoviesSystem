@@ -20,7 +20,8 @@ namespace Movies.Server.Controllers
 		[HttpPost]
 		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData)
 		{
-			Console.WriteLine("-- POST api/movie: create movie");
+			//Clean the key
+			movieApiData.Key = movieApiData.Key.Trim().ToLower();
 
 			var result = await _client.CreateMovie(movieApiData).ConfigureAwait(false);
 			return result;

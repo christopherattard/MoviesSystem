@@ -44,12 +44,16 @@ namespace Movies.GrainClients
 			return grain.GetTopMovies(topCount);
 		}
 
+		public Task<List<MovieInfo>> GetMoviesBySearch(string search)
+		{
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			return grain.GetMoviesBySearch(search);
+		}
 		public Task<List<MovieInfo>> GetMoviesByGenre(string genre)
 		{
 			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
 			return grain.GetMoviesByGenre(genre);
 		}
-
 		public Task<MovieApiData> GetMovieDetails(string movieKey)
 		{
 			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);

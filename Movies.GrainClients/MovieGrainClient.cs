@@ -18,6 +18,9 @@ namespace Movies.GrainClients
 
 		public Task<MovieApiData> CreateMovie(MovieApiData movieApiData) 
 		{
+			//Clean the key
+			movieApiData.Key = movieApiData.Key.Trim().ToLower();
+
 			var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieApiData.Key);
 			return movieGrain.Update(movieApiData);
 		}

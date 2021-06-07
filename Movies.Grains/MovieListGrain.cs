@@ -96,21 +96,16 @@ namespace Movies.Grains
 			return resultList;
 		}
 
-		public async Task<List<MovieInfo>> GetMoviesByGenre(string genre)
+		public async Task<List<MovieInfo>> GetMoviesByGenre(string genres)
 		{
-			//Clean up the genre
-			if (string.IsNullOrWhiteSpace(genre))
-			{ 
-				return null;
-			}
-
-			string cleanGenre = genre.Trim().ToLower();
-			if (string.IsNullOrWhiteSpace(cleanGenre))
+			//Clean up the genres
+			List<string> cleanGenres = _parseAndCleanString(genres);
+			if (cleanGenres == null || cleanGenres.Count == 0)
 			{
 				return null;
 			}
-			
-			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({cleanGenre}) --");			
+
+			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({string.Join(",", cleanGenres)}) --");			
 
 			if (State.MovieList == null)
 			{
@@ -126,18 +121,27 @@ namespace Movies.Grains
 
 			foreach (MovieInfo movieInfo in State.MovieList)
 			{
-				if (movieInfo.Genres.Contains(cleanGenre))
+				foreach (var genre in cleanGenres)
 				{
-					resultList.Add(movieInfo);
+					if (movieInfo.Genres.Contains(genre) && !resultList.Contains(movieInfo))
+					{
+						resultList.Add(movieInfo);
+					}
 				}				
 			}
 
 			return resultList;
 		}
 
-		public async Task<List<MovieInfo>> GetMoviesBySearch(string searchFilter)
+		public async Task<List<MovieInfo>> GetMoviesBySearch(string search)
 		{
-			Console.WriteLine($"-- MovieListGrain.GetMoviesBySearch({searchFilter}) --");
+			List<string> cleanWords = _parseAndCleanString(search);
+			if (cleanWords == null || cleanWords.Count == 0)
+			{
+				return null;
+			}
+			
+			Console.WriteLine($"-- MovieListGrain.GetMoviesBySearch({string.Join(",", cleanWords)}) --");
 
 			if (State.MovieList == null)
 			{
@@ -153,11 +157,13 @@ namespace Movies.Grains
 
 			foreach (MovieInfo movieInfo in State.MovieList)
 			{
-				if (movieInfo.Key.IndexOf(searchFilter) > -1)
+				foreach (var word in cleanWords)
 				{
-					resultList.Add(movieInfo);
-				}
-				
+					if (movieInfo.Key.IndexOf(word) > -1 && !resultList.Contains(movieInfo))
+					{
+						resultList.Add(movieInfo);
+					}
+				}				
 			}
 			return resultList;
 		}
@@ -193,6 +199,34 @@ namespace Movies.Grains
 				return movieApiData;
 			}
 
+		}
+
+		private List<string> _parseAndCleanString(string str)
+		{
+			//Clean up the search words
+			if (string.IsNullOrWhiteSpace(str))
+			{
+				return null;
+			}
+
+			List<string> cleanWords = new List<string>();
+			var searchWords = str.Split(" ,".ToCharArray());
+			foreach (string word in searchWords)
+			{
+				if (!string.IsNullOrWhiteSpace(word) && !cleanWords.Contains(word))
+				{
+					cleanWords.Add(word);
+				}
+			}
+
+			if (cleanWords.Count == 0)
+			{
+				return null;
+			}
+			else
+			{
+				return cleanWords;
+			}
 		}
 	}
 }
