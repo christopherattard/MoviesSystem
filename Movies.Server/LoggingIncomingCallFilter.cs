@@ -20,7 +20,7 @@ namespace Movies.Server
 		{
 			var grainType = context.Grain.GetType();
 			var grainName = grainType.GetDemystifiedName();
-			var shouldHaveDetailedTrace = grainType.Namespace.Contains("Movies"); // todo: Create log filter mechanism
+			var shouldHaveDetailedTrace = grainType.Namespace.Contains("Movie"); // todo: Create log filter mechanism
 
 			if (!shouldHaveDetailedTrace)
 			{

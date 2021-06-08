@@ -46,7 +46,9 @@ namespace Movies.Server.Infrastructure
 				{
 					options.ClusterId = appInfo.ClusterId;
 					options.ServiceId = appInfo.Name;
-				});
+				})
+				.AddStartupTask<PreloadGrainStartupTask>()
+				;
 
 			siloHost.UseDevelopment(context);
 			siloHost.UseDevelopmentClustering(context);

@@ -43,6 +43,11 @@ namespace Movies.Core
 		/// Gets which service type is this app responsible of e.g. web, silo, etc...
 		/// </summary>
 		string ServiceType { get; set; }
+
+		/// <summary>
+		/// Gets the full path of the movies.json file.
+		/// </summary>
+		string MoviesPath { get; set; }
 	}
 
 	public class AppInfo : IAppInfo
@@ -55,6 +60,7 @@ namespace Movies.Core
 		public string Version { get; set; }
 		public bool IsDockerized { get; set; }
 		public string ServiceType { get; set; }
+		public string MoviesPath { get; set; }
 
 		private static readonly Dictionary<string, string> EnvironmentMapping = new Dictionary<string, string>
 		{
@@ -80,6 +86,7 @@ namespace Movies.Core
 			IsDockerized = config.GetValue<bool>("DOCKER");
 			ServiceType = config.GetValue("serviceType", "dotnet");
 			ShortName = Name.Split('/').Last();
+			MoviesPath = config.GetValue("moviesPath", "");
 
 			if (string.IsNullOrEmpty(Environment))
 				throw new InvalidOperationException("Environment is not set. Please specify the environment via 'ASPNETCORE_ENVIRONMENT'");

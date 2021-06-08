@@ -1,4 +1,5 @@
-﻿using GraphQL.Server;
+﻿using GraphQL;
+using GraphQL.Server;
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 using Movies.Server.Gql.Types;
@@ -20,7 +21,10 @@ namespace Movies.Server.Gql.App
 			services.AddSingleton<AppGraphQuery>();
 			services.AddSingleton<AppGraphMutation>();
 
-			services.AddSingleton<SampleDataGraphType>();
+			//services.AddSingleton<SampleDataGraphType>();
+			services.AddSingleton<MovieInfoGraphType>();
+			services.AddSingleton<MovieListGraphType>();
+			services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 		}
 	}
 }

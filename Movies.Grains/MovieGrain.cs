@@ -50,8 +50,7 @@ namespace Movies.Grains
 				Rate = movieApiData.Rate
 			};
 
-			var movieListGrain = GrainFactory.GetGrain<IMovieListGrain>("CA");  // the aggregator grain is a singleton - Guid.Empty is convention to indicate this
-																				//await aggregator.DeleteAnEvent(id);  
+			var movieListGrain = GrainFactory.GetGrain<IMovieListGrain>("CA");   
 			await movieListGrain.AddMovie(movieInfo);
 
 			return movieApiData;

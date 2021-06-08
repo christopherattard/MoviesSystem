@@ -16,4 +16,12 @@ namespace Movies.Models
 		public List<string> Genres { get; set; }
 	}
 
+	/// <summary>
+	/// This class is used only for deserialization from movies.json file.
+	/// </summary>
+	public class Root
+	{
+		public List<MovieState> movies { get; set; }
+	}
+
 }

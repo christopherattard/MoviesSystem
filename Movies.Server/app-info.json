@@ -2,5 +2,6 @@
   "__NOTE__": "DO NOT MODIFY THESE MANUALLY! Auto-generated during CI!",
   "appName": "@rivertech/movies",
   "gitCommit": "-",
-  "version": "local"
+  "version": "local",
+  "moviesPath": "C:\\Projects\\MoviesSystem\\movies.json"
 }
