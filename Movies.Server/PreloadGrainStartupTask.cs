@@ -4,6 +4,7 @@ using Movies.Models;
 using Newtonsoft.Json;
 using Orleans;
 using Orleans.Runtime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -57,6 +58,14 @@ namespace Movies.Server
 						}
 					}
 				}
+				else
+				{
+					Console.WriteLine("WARNING - check if movies file has content.");
+				}
+			}
+			else
+			{
+				Console.WriteLine("WARNING - check if movies file is specified in the moviesPath key in config and check if the file exists.");
 			}
 		}
 	}
