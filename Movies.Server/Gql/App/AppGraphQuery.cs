@@ -23,9 +23,35 @@ namespace Movies.Server.Gql.App
 		{
 			Name = "AppQueries";
 
-			Field<MovieListGraphType>("getallmovies",				
+			Field<ListGraphType<MovieInfoGraphType>>("getallmovies",
 				resolve: ctx => client.GetAllMovies()
 			);
+
+			/*{
+				getallmovies{
+								key,
+								name,
+								description,
+								rate
+							}
+			}*/
+
+			Field<ListGraphType<MovieInfoGraphType>>("gettopmovies",
+				arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "topcount" }),
+				resolve: context => client.GetTopMovies((int)context.Arguments["topcount"])
+				);
+
+			/*{
+				gettopmovies(topcount: 3){
+											key,
+											name,
+											description,
+											rate
+										}
+			}*/
 		}
+
+
+
 	}
 }
