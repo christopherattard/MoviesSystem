@@ -13,8 +13,7 @@ namespace Movies.Grains
 	{	
 		public async Task<MovieApiData> Update(MovieApiData movieApiData) 
 		{
-			string key = this.GetPrimaryKeyString();
-			Console.WriteLine($"-- MovieGrain Update() for movie with key #{key} and name {movieApiData.Name} --");
+			string key = this.GetPrimaryKeyString();			
 
 			// update interal grain state
 
@@ -30,14 +29,13 @@ namespace Movies.Grains
 			List<string> cleanGenres = new List<string>();
 			foreach (var genre in movieApiData.Genres)
 			{
-				if (string.IsNullOrWhiteSpace(genre))
+				if (!string.IsNullOrWhiteSpace(genre))
 				{
 					cleanGenres.Add(genre.Trim().ToLower());
 				}
 			}
 			State.Genres = cleanGenres;
-
-			Console.WriteLine($"-- MovieGrain Update() about to write WriteStateAsync --");
+			
 			await base.WriteStateAsync();
 
 			// update movie list about this new movie
@@ -46,7 +44,7 @@ namespace Movies.Grains
 				Key = movieApiData.Key,
 				Name = movieApiData.Name,
 				Description = movieApiData.Description,
-				Genres = movieApiData.Genres,
+				Genres = cleanGenres,
 				Rate = movieApiData.Rate
 			};
 
@@ -57,13 +55,14 @@ namespace Movies.Grains
 		}
 
 		public async Task<MovieApiData> GetMovieDetails() => new MovieApiData
-		{
-			Key = State.Key,
-			Description = State.Description,
-			Name = State.Name,				
-			Rate = State.Rate,
-			Length = State.Length,
-			Img = State.Img
-		};		
+			{
+				Key = State.Key,
+				Description = State.Description,
+				Name = State.Name,
+				Rate = State.Rate,
+				Length = State.Length,
+				Img = State.Img,
+				Genres = State.Genres				
+			};		
 	}
 }

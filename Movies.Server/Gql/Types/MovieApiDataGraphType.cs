@@ -10,7 +10,7 @@ namespace Movies.Server.Gql.Types
 			Field(x => x.Key).Description("Movie key.");
 			Field(x => x.Name).Description("Movie name.");
 			Field(x => x.Description).Description("Movie description.");
-			//Field(x=> x.Genres)
+			Field<ListGraphType<StringGraphType>>("genres", "List of genres.");
 			Field(x => x.Rate).Description("Movie rating.");
 			Field(x => x.Length).Description("Movie length.");
 			Field(x => x.Img).Description("Movie image.");
