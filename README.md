@@ -3,8 +3,8 @@
 
 ## Setup
 
-1) Locate the app-info.json config file and add the following keys:
-	- "moviesPath" - specify the full path of the movies.json file (for e.g. "C:\\Projects\\MoviesSystem\\movies.json");
+1) Locate the *app-info.json* configuration file and add the following keys:
+	- "moviesPath" - specify the full path of the movies.json file (for e.g. "*C:\\Projects\\MoviesSystem\\movies.json*");
 	- "grainPrimaryKey" - specify a string primary key for the MoviesListGrain.
 
 2) Update the following NuGet packages in Movies.Server project to the latest version:
