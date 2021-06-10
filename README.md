@@ -1,8 +1,15 @@
-# Movies Microservice
+# Movies System
 **Version: 1.0**
-## Scenario
 
-You are tasked with creating an API for an application that the company is building for a client. The application is a movies indexing application that will have high volumes of traffic and thus it needs to be fast, efficient and robust while being secure at the same time.
+## Setup
+
+1) Locate the app-info.json config file and add the following keys:
+a) "moviesPath" - specify the full path of the movies.json file (for e.g. "C:\\Projects\\MoviesSystem\\movies.json");
+b) "grainPrimaryKey - specify a string primary key for the MoviesListGrain.
+
+2) Update the following NuGet packages in Movies.Server project to the latest version:
+a) GraphQL
+b) GraphQL.Server.Transports.AspNetCore.NewtonsoftJson
 
 The application has the following functionality:
 

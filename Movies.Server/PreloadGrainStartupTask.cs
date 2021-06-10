@@ -14,6 +14,7 @@ namespace Movies.Server
 {
 	/// <summary>
 	/// This startup class loads the movies.json file contents into the grain.
+	/// TODO: Find a way to use the IMovieGrainClient to add the movies.
 	/// </summary>
 	public class PreloadGrainStartupTask : IStartupTask
 	{
