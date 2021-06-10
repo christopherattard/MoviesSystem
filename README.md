@@ -4,12 +4,12 @@
 ## Setup
 
 1) Locate the app-info.json config file and add the following keys:
-a) "moviesPath" - specify the full path of the movies.json file (for e.g. "C:\\Projects\\MoviesSystem\\movies.json");
-b) "grainPrimaryKey - specify a string primary key for the MoviesListGrain.
+	- "moviesPath" - specify the full path of the movies.json file (for e.g. "C:\\Projects\\MoviesSystem\\movies.json");
+	- "grainPrimaryKey - specify a string primary key for the MoviesListGrain.
 
 2) Update the following NuGet packages in Movies.Server project to the latest version:
-a) GraphQL
-b) GraphQL.Server.Transports.AspNetCore.NewtonsoftJson
+	- GraphQL
+	- GraphQL.Server.Transports.AspNetCore.NewtonsoftJson
 
 The application has the following functionality:
 
