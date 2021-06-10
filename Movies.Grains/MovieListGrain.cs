@@ -14,8 +14,6 @@ namespace Movies.Grains
 	{
 		public async Task AddMovie(MovieInfo movieInfo)
 		{
-			Console.WriteLine($"-- MovieListGrain AddMovie() for movie [{movieInfo.Name}] with key #{movieInfo.Key} --");
-
 			// ensure movie list is not null
 			if (State.MovieList == null)
 			{
@@ -32,7 +30,6 @@ namespace Movies.Grains
 			// add this event key to our active list
 			State.MovieList.Add(movieInfo);
 
-			Console.WriteLine($"-- MovieListGrain.AddMovie() - call WriteStateAsync for new movie with key #{movieInfo.Key} --");
 			await base.WriteStateAsync();
 			
 			return;
@@ -40,8 +37,6 @@ namespace Movies.Grains
 
 		public async Task DeleteMovie(string movieKey)
 		{
-			Console.WriteLine($"-- MovieListGrain.DeleteMovie() for movie with key #{movieKey} --");
-
 			// check args
 			if (string.IsNullOrWhiteSpace(movieKey))
 			{
@@ -59,7 +54,6 @@ namespace Movies.Grains
 			{
 				State.MovieList.RemoveAt(index);  // remove it
 
-				Console.WriteLine($"** -- MovieListGrain.DeleteMovie() - call WriteStateAsync for deleted movie with key #{movieKey} --");
 				await base.WriteStateAsync();
 			}
 
@@ -68,8 +62,6 @@ namespace Movies.Grains
 
 		public async Task<List<MovieInfo>> GetAllMovies()
 		{
-			Console.WriteLine($"-- MovieListGrain.ListMovies() --");
-
 			if (State.MovieList == null)
 			{
 				State.MovieList = new List<MovieInfo>();
@@ -80,8 +72,6 @@ namespace Movies.Grains
 
 		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
 		{
-			Console.WriteLine($"-- MovieListGrain.GetTopMovies({topCount}) --");
-
 			if (State.MovieList == null)
 			{
 				State.MovieList = new List<MovieInfo>();				
@@ -104,8 +94,6 @@ namespace Movies.Grains
 			{
 				return null;
 			}
-
-			Console.WriteLine($"-- MovieListGrain.GetMoviesByGenre({string.Join(",", cleanGenres)}) --");			
 
 			if (State.MovieList == null)
 			{
@@ -141,8 +129,6 @@ namespace Movies.Grains
 				return null;
 			}
 			
-			Console.WriteLine($"-- MovieListGrain.GetMoviesBySearch({string.Join(",", cleanWords)}) --");
-
 			if (State.MovieList == null)
 			{
 				State.MovieList = new List<MovieInfo>();
@@ -170,7 +156,6 @@ namespace Movies.Grains
 
 		public async Task<MovieApiData> GetMovieDetails(string movieKey)
 		{
-			Console.WriteLine($"-- MovieListGrain.GetMovieDetails({movieKey}) --");
 			MovieApiData movieApiData = null;
 			
 			if (State.MovieList == null)

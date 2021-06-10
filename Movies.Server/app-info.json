@@ -3,5 +3,6 @@
   "appName": "@rivertech/movies",
   "gitCommit": "-",
   "version": "local",
-  "moviesPath": "C:\\Projects\\MoviesSystem\\movies.json"
+  "moviesPath": "C:\\Projects\\MoviesSystem\\movies.json",
+  "grainPrimaryKey" : "CA"
 }

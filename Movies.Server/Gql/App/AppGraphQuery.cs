@@ -1,24 +1,12 @@
-﻿using GraphQL.Types;
+﻿using GraphQL;
+using GraphQL.Types;
 using Movies.Contracts;
 using Movies.Server.Gql.Types;
 
 namespace Movies.Server.Gql.App
 {
 	public class AppGraphQuery : ObjectGraphType
-	{
-		//public AppGraphQuery(ISampleGrainClient sampleClient)
-		//{
-		//	Name = "AppQueries";
-
-		//	Field<SampleDataGraphType>("sample",
-		//		arguments: new QueryArguments(new QueryArgument<StringGraphType>
-		//		{
-		//			Name = "id"
-		//		}),
-		//		resolve: ctx => sampleClient.Get(ctx.Arguments["id"].ToString())
-		//	);
-		//}
-
+	{	
 		public AppGraphQuery(IMovieGrainClient movieGrainClient, IMovieListGrainClient movieListGrainClient)
 		{
 			Name = "AppQueries";
@@ -32,13 +20,14 @@ namespace Movies.Server.Gql.App
 								key,
 								name,
 								description,
-								rate
+								rate,
+								genres
 							}
 			}*/
 
 			Field<ListGraphType<MovieInfoGraphType>>("gettopmovies",
 				arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "topcount" }),
-				resolve: context => movieListGrainClient.GetTopMovies((int)context.Arguments["topcount"])
+				resolve: context => movieListGrainClient.GetTopMovies(context.GetArgument<int>("topcount"))
 				);
 
 			/*{
@@ -46,13 +35,14 @@ namespace Movies.Server.Gql.App
 											key,
 											name,
 											description,
-											rate
+											rate,
+											genres
 										}
 			}*/			
 			
 			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbysearch",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "search" }),
-				resolve: context => movieListGrainClient.GetMoviesBySearch(context.Arguments["search"].ToString())
+				resolve: context => movieListGrainClient.GetMoviesBySearch(context.GetArgument<string>("search"))
 				);
 
 			/*{
@@ -60,13 +50,14 @@ namespace Movies.Server.Gql.App
 															key,
 															name,
 															description,
-															rate
+															rate,
+															genres
 														}
 			}*/
 
 			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbygenre",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "genre" }),
-				resolve: context => movieListGrainClient.GetMoviesByGenre(context.Arguments["genre"].ToString())
+				resolve: context => movieListGrainClient.GetMoviesByGenre(context.GetArgument<string>("genre"))
 				);
 
 			/*{
@@ -74,13 +65,14 @@ namespace Movies.Server.Gql.App
 														key,
 														name,
 														description,
-														rate
+														rate,
+														genres
 													}
 			}*/
 
 			Field<MovieApiDataGraphType>("getmoviedetails",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "moviekey" }),
-				resolve: context => movieGrainClient.GetMovieDetails(context.Arguments["moviekey"].ToString())
+				resolve: context => movieGrainClient.GetMovieDetails(context.GetArgument<string>("moviekey"))
 				);
 
 			/*{
@@ -88,6 +80,7 @@ namespace Movies.Server.Gql.App
 																				key,
 																				name,
 																				description,
+																				genres,
 																				rate,
 																				length,
 																				img

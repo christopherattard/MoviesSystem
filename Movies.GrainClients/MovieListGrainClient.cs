@@ -1,4 +1,6 @@
-﻿using Movies.Contracts;
+﻿using Microsoft.Extensions.Configuration;
+using Movies.Contracts;
+using Movies.Core;
 using Movies.Models;
 using Orleans;
 using System;
@@ -13,50 +15,55 @@ namespace Movies.GrainClients
 	{
 		private readonly IGrainFactory _grainFactory;
 		//private readonly IHttpContextAccessor _httpContextAccessor;
-		private const string PRIMARY_KEY = "CA";
+		private readonly string _grainPrimaryKey = "";
 
-		public MovieListGrainClient(IGrainFactory grainFactory /*, IHttpContextAccessor httpContextAccessor*/)
+		public MovieListGrainClient(IAppInfo appInfo, IGrainFactory grainFactory /*, IHttpContextAccessor httpContextAccessor*/)
 		{
 			_grainFactory = grainFactory;
+			_grainPrimaryKey = appInfo.GrainPrimaryKey;
+
 		}
 
 		public Task AddMovie(MovieInfo movieInfo)
 		{
 			//string userName = HttpContext.User.Identity.Name;
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.AddMovie(movieInfo);
 		}
+
 		public Task DeleteMovie(string movieId) 
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.DeleteMovie(movieId);
 		}
 
 		public Task<List<MovieInfo>> GetAllMovies()
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.GetAllMovies();
 		}
 
 		public Task<List<MovieInfo>> GetTopMovies(int topCount)
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.GetTopMovies(topCount);
 		}
 
 		public Task<List<MovieInfo>> GetMoviesBySearch(string search)
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.GetMoviesBySearch(search);
 		}
+
 		public Task<List<MovieInfo>> GetMoviesByGenre(string genre)
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.GetMoviesByGenre(genre);
 		}
+
 		public Task<MovieApiData> GetMovieDetails(string movieKey)
 		{
-			var grain = _grainFactory.GetGrain<IMovieListGrain>(PRIMARY_KEY);
+			var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 			return grain.GetMovieDetails(movieKey);
 		}
 	}

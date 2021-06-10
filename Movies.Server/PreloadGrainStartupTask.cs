@@ -18,12 +18,12 @@ namespace Movies.Server
 	public class PreloadGrainStartupTask : IStartupTask
 	{
 		private readonly IGrainFactory _grainFactory;
-		private readonly IAppInfo _appInfo;
+		private readonly IAppInfo _appInfo;		
 
 		public PreloadGrainStartupTask(IAppInfo appInfo, IGrainFactory grainFactory)
 		{
 			_appInfo = appInfo;
-			_grainFactory = grainFactory;			
+			_grainFactory = grainFactory;		
 		}
 
 		public async Task Execute(CancellationToken cancellationToken)
@@ -44,8 +44,8 @@ namespace Movies.Server
 							var movieStateGenres = new List<string>();
 							movieStateGenres.AddRange(movieState.Genres);
 
-							var grain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);
-							await grain.Update(new MovieApiData
+							var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);							
+							await movieGrain.Update(new MovieApiData
 							{
 								Key = movieState.Key,
 								Name = movieState.Name,
@@ -55,6 +55,19 @@ namespace Movies.Server
 								Length = movieState.Length,
 								Img = movieState.Img
 							});
+
+							// update movie list about this new movie
+							MovieInfo movieInfo = new MovieInfo
+							{
+								Key = movieState.Key,
+								Name = movieState.Name,
+								Description = movieState.Description,
+								Genres = movieState.Genres,
+								Rate = movieState.Rate
+							};
+
+							var movieListGrain = _grainFactory.GetGrain<IMovieListGrain>(_appInfo.GrainPrimaryKey);
+							await movieListGrain.AddMovie(movieInfo);
 						}
 					}
 				}

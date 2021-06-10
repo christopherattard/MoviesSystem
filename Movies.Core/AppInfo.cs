@@ -48,6 +48,11 @@ namespace Movies.Core
 		/// Gets the full path of the movies.json file.
 		/// </summary>
 		string MoviesPath { get; set; }
+
+		/// <summary>
+		/// Gets the movie list grain primary key.
+		/// </summary>
+		string GrainPrimaryKey { get; set; }
 	}
 
 	public class AppInfo : IAppInfo
@@ -61,6 +66,7 @@ namespace Movies.Core
 		public bool IsDockerized { get; set; }
 		public string ServiceType { get; set; }
 		public string MoviesPath { get; set; }
+		public string GrainPrimaryKey { get; set; }
 
 		private static readonly Dictionary<string, string> EnvironmentMapping = new Dictionary<string, string>
 		{
@@ -87,6 +93,7 @@ namespace Movies.Core
 			ServiceType = config.GetValue("serviceType", "dotnet");
 			ShortName = Name.Split('/').Last();
 			MoviesPath = config.GetValue("moviesPath", "");
+			GrainPrimaryKey = config.GetValue("grainPrimaryKey", "");
 
 			if (string.IsNullOrEmpty(Environment))
 				throw new InvalidOperationException("Environment is not set. Please specify the environment via 'ASPNETCORE_ENVIRONMENT'");

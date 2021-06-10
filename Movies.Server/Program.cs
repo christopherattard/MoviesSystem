@@ -89,7 +89,8 @@ namespace Movies.Server
 							}
 						})
 						.ConfigureApplicationParts(parts => parts
-							.AddApplicationPart(typeof(SampleGrain).Assembly).WithReferences()
+							.AddApplicationPart(typeof(MovieGrain).Assembly).WithReferences()
+							.AddApplicationPart(typeof(MovieListGrain).Assembly).WithReferences()
 						)
 						.AddIncomingGrainCallFilter<LoggingIncomingCallFilter>()
 					;

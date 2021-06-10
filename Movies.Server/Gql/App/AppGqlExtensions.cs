@@ -13,7 +13,7 @@ namespace Movies.Server.Gql.App
 			services.AddGraphQL(options =>
 				{
 					options.EnableMetrics = true;
-					options.ExposeExceptions = true;
+					//options.ExposeExceptions = true;
 				})
 				.AddNewtonsoftJson();
 

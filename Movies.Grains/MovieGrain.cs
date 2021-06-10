@@ -11,12 +11,11 @@ namespace Movies.Grains
 	[StorageProvider(ProviderName = "Default")]
 	public class MovieGrain : Grain<MovieState>, IMovieGrain
 	{	
-		public async Task<MovieApiData> Update(MovieApiData movieApiData) 
+		public async Task<MovieState> Update(MovieApiData movieApiData) 
 		{
 			string key = this.GetPrimaryKeyString();			
 
 			// update interal grain state
-
 			State.Key = key;
 			State.Name = movieApiData.Name;
 			State.Description = movieApiData.Description;
@@ -38,20 +37,7 @@ namespace Movies.Grains
 			
 			await base.WriteStateAsync();
 
-			// update movie list about this new movie
-			MovieInfo movieInfo = new MovieInfo
-			{
-				Key = movieApiData.Key,
-				Name = movieApiData.Name,
-				Description = movieApiData.Description,
-				Genres = cleanGenres,
-				Rate = movieApiData.Rate
-			};
-
-			var movieListGrain = GrainFactory.GetGrain<IMovieListGrain>("CA");   
-			await movieListGrain.AddMovie(movieInfo);
-
-			return movieApiData;
+			return State;			
 		}
 
 		public async Task<MovieApiData> GetMovieDetails() => new MovieApiData
