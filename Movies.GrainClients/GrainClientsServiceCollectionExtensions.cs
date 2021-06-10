@@ -9,7 +9,7 @@ namespace Movies.GrainClients
 		{
 			services.AddSingleton<ISampleGrainClient, SampleGrainClient>();
 			services.AddSingleton<IMovieListGrainClient, MovieListGrainClient>();
-			services.AddScoped<IMovieGrainClient, MovieGrainClient>();
+			services.AddSingleton<IMovieGrainClient, MovieGrainClient>();
 		}
 	}
 }

@@ -19,12 +19,12 @@ namespace Movies.Server.Gql.App
 		//	);
 		//}
 
-		public AppGraphQuery(IMovieListGrainClient client)
+		public AppGraphQuery(IMovieGrainClient movieGrainClient, IMovieListGrainClient movieListGrainClient)
 		{
 			Name = "AppQueries";
 
 			Field<ListGraphType<MovieInfoGraphType>>("getallmovies",
-				resolve: ctx => client.GetAllMovies()
+				resolve: ctx => movieListGrainClient.GetAllMovies()
 			);
 
 			/*{
@@ -38,7 +38,7 @@ namespace Movies.Server.Gql.App
 
 			Field<ListGraphType<MovieInfoGraphType>>("gettopmovies",
 				arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "topcount" }),
-				resolve: context => client.GetTopMovies((int)context.Arguments["topcount"])
+				resolve: context => movieListGrainClient.GetTopMovies((int)context.Arguments["topcount"])
 				);
 
 			/*{
@@ -48,7 +48,52 @@ namespace Movies.Server.Gql.App
 											description,
 											rate
 										}
+			}*/			
+			
+			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbysearch",
+				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "search" }),
+				resolve: context => movieListGrainClient.GetMoviesBySearch(context.Arguments["search"].ToString())
+				);
+
+			/*{
+				getmoviesbysearch(search: "gang,gangster"){
+															key,
+															name,
+															description,
+															rate
+														}
 			}*/
+
+			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbygenre",
+				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "genre" }),
+				resolve: context => movieListGrainClient.GetMoviesByGenre(context.Arguments["genre"].ToString())
+				);
+
+			/*{
+				getmoviesbygenre(genre: "crime,drama"){
+														key,
+														name,
+														description,
+														rate
+													}
+			}*/
+
+			Field<MovieApiDataGraphType>("getmoviedetails",
+				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "moviekey" }),
+				resolve: context => movieGrainClient.GetMovieDetails(context.Arguments["moviekey"].ToString())
+				);
+
+			/*{
+				getmoviedetails(moviekey: "mission-impossible-rogue-nation"){
+																				key,
+																				name,
+																				description,
+																				rate,
+																				length,
+																				img
+																			}
+			}*/
+
 		}
 
 
