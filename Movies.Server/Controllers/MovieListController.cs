@@ -19,6 +19,7 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("")]
+		[ResponseCache(Duration = 30)]
 		public async Task<List<MovieInfo>> GetAllMovies()
 		{			
 			List<MovieInfo> list = await _client.GetAllMovies();
@@ -26,6 +27,7 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("{movieKey}")]
+		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "movieKey" })]
 		public async Task<MovieApiData> GetMovieDetails(string movieKey)
 		{ 
 			var result = await _client.GetMovieDetails(movieKey).ConfigureAwait(false);
@@ -33,6 +35,7 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("genre/{genre}")]
+		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "genre" })]
 		public async Task<List<MovieInfo>> GetMoviesByGenre(string genre)
 		{		
 			var result = await _client.GetMoviesByGenre(genre).ConfigureAwait(false);
@@ -40,6 +43,7 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("search/{search}")]
+		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "search" })]
 		public async Task<List<MovieInfo>> GetMoviesBySearch(string search)
 		{
 			var result = await _client.GetMoviesBySearch(search).ConfigureAwait(false);
@@ -47,6 +51,7 @@ namespace Movies.Server.Controllers
 		}
 
 		[HttpGet("top/{topCount}")]
+		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "topCount" })]
 		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
 		{
 			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);

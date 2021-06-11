@@ -2,6 +2,7 @@
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ using Movies.GrainClients;
 using Movies.Server.Gql;
 using Movies.Server.Gql.App;
 using Movies.Server.Infrastructure;
+using System;
 
 namespace Movies.Server
 {
@@ -51,7 +53,8 @@ namespace Movies.Server
 			});
 
 			services.AddAppClients();
-			services.AddAppGraphQL();			
+			services.AddAppGraphQL();
+			services.AddResponseCaching();
 			services.AddControllers()
 			.AddNewtonsoftJson();
 		}
@@ -61,9 +64,7 @@ namespace Movies.Server
 			IApplicationBuilder app,
 			IWebHostEnvironment env
 		)
-		{
-			app.UseCors("TempCorsPolicy");
-
+		{ 
 			// add http for Schema at default url /graphql
 			app.UseGraphQL<ISchema>();
 
@@ -79,6 +80,24 @@ namespace Movies.Server
 			}
 
 			app.UseRouting();
+
+			app.UseCors("TempCorsPolicy");
+
+			app.UseResponseCaching();
+
+			app.Use(async (context, next) =>
+			{
+				context.Response.GetTypedHeaders().CacheControl =
+					new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+					{
+						Public = true,
+						MaxAge = TimeSpan.FromSeconds(10)
+					};
+				context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+					new string[] { "Accept-Encoding" };
+
+				await next();
+			});
 
 			app.UseAuthorization();
 
