@@ -57,6 +57,7 @@ namespace Movies.Server
 			services.AddResponseCaching();
 			services.AddControllers()
 			.AddNewtonsoftJson();
+			services.AddSwaggerGen();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +79,13 @@ namespace Movies.Server
 				app.UseDeveloperExceptionPage();
 				app.UseGraphiQl();
 			}
+
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieSystem API Version 1.0");
+				c.RoutePrefix = string.Empty;
+			});
 
 			app.UseRouting();
 
