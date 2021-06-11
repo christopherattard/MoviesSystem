@@ -9,7 +9,7 @@ namespace Movies.Tests
         [Fact]
         public void JSONFile_FileExists_True()
         {
-			Assert.True(File.Exists("C:\\Projects\\MoviesSystem\\movies.json"));
+			Assert.True(File.Exists(@"C:\\Projects\\MoviesSystem\\movies.json"));
         }
     }
 }
