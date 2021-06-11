@@ -53,6 +53,11 @@ namespace Movies.Core
 		/// Gets the movie list grain primary key.
 		/// </summary>
 		string GrainPrimaryKey { get; set; }
+		
+		/// <summary>
+		/// The origins that are specified to the CORS policy.
+		/// </summary>
+		string CorsOrigins { get; set; }
 	}
 
 	public class AppInfo : IAppInfo
@@ -67,6 +72,7 @@ namespace Movies.Core
 		public string ServiceType { get; set; }
 		public string MoviesPath { get; set; }
 		public string GrainPrimaryKey { get; set; }
+		public string CorsOrigins { get; set; }
 
 		private static readonly Dictionary<string, string> EnvironmentMapping = new Dictionary<string, string>
 		{
@@ -94,6 +100,7 @@ namespace Movies.Core
 			ShortName = Name.Split('/').Last();
 			MoviesPath = config.GetValue("moviesPath", "");
 			GrainPrimaryKey = config.GetValue("grainPrimaryKey", "");
+			CorsOrigins = config.GetValue("corsOrigins", "");
 
 			if (string.IsNullOrEmpty(Environment))
 				throw new InvalidOperationException("Environment is not set. Please specify the environment via 'ASPNETCORE_ENVIRONMENT'");

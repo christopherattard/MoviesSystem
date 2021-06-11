@@ -4,5 +4,6 @@
   "gitCommit": "-",
   "version": "local",
   "moviesPath": "C:\\Projects\\MoviesSystem\\movies.json",
-  "grainPrimaryKey" : "CA"
+  "grainPrimaryKey": "CA",
+  "corsOrigins" : "http://localhost:6600"
 }

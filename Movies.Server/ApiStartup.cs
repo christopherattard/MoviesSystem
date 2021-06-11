@@ -37,7 +37,7 @@ namespace Movies.Server
 			{
 				builder
 					//.SetIsOriginAllowed((host) => true)
-					.WithOrigins("http://localhost:6600")
+					.WithOrigins(_appInfo.CorsOrigins)
 					.AllowAnyMethod()
 					.AllowAnyHeader()
 					.AllowCredentials()
