@@ -1,3 +1,5 @@
+using Movies.Models;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using Xunit;
@@ -17,11 +19,18 @@ namespace Movies.Tests
 		[Fact]
 		public void MoviesFile_FileIsNotEmpty_True()
 		{
-			Assert.True(File.Exists(MOVIES_PATH));
-
 			var fileContents = File.ReadAllText(MOVIES_PATH);
 
 			Assert.True(!string.IsNullOrWhiteSpace(fileContents));
+		}
+
+		[Fact]
+		public void MoviesFile_FileIsValid_True()
+		{
+			var fileContents = File.ReadAllText(MOVIES_PATH);
+			var movieList = JsonConvert.DeserializeObject<Root>(fileContents);
+
+			Assert.NotNull(movieList);
 		}
 	}
 }
