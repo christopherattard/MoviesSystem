@@ -40,22 +40,17 @@ namespace Movies.Server.Controllers
 		[HttpGet("genre/{genre}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "genre" })]
 		public async Task<List<MovieApiData>> GetMoviesByGenre(string genre) =>
-			await _client.GetMoviesByGenre(genre).ConfigureAwait(false);			
-		
+			await _client.GetMoviesByGenre(genre).ConfigureAwait(false);		
 
 		[HttpGet("search/{search}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "search" })]
 		public async Task<List<MovieApiData>> GetMoviesBySearch(string search) => 
-			await _client.GetMoviesBySearch(search).ConfigureAwait(false);			
-		
+			await _client.GetMoviesBySearch(search).ConfigureAwait(false);		
 
 		[HttpGet("top/{topCount}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "topCount" })]
-		public async Task<List<MovieApiData>> GetTopMovies(int topCount)
-		{
-			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
-			return result;
-		}
+		public async Task<List<MovieApiData>> GetTopMovies(int topCount) =>
+			await _client.GetTopMovies(topCount).ConfigureAwait(false);	
 
 		[HttpPost("getToken")]
 		[AllowAnonymous]
