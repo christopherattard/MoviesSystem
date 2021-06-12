@@ -29,57 +29,64 @@ namespace Movies.Server
 
 		public async Task Execute(CancellationToken cancellationToken)
 		{
-			// Check that the path is specified and that the file exists
-			if (!string.IsNullOrWhiteSpace(_appInfo.MoviesPath) && File.Exists(_appInfo.MoviesPath))
+			try
 			{
-				var fileContents = File.ReadAllText(_appInfo.MoviesPath);
-				// Check if the file has any contents
-				if (!string.IsNullOrWhiteSpace(fileContents))
+				// Check that the path is specified and that the file exists
+				if (!string.IsNullOrWhiteSpace(_appInfo.MoviesPath) && File.Exists(_appInfo.MoviesPath))
 				{
-					var movieList = JsonConvert.DeserializeObject<Root>(fileContents);
-
-					if (movieList != null && movieList.movies != null)
+					var fileContents = File.ReadAllText(_appInfo.MoviesPath);
+					// Check if the file has any contents
+					if (!string.IsNullOrWhiteSpace(fileContents))
 					{
-						foreach (var movieState in movieList.movies)
+						var movieList = JsonConvert.DeserializeObject<Root>(fileContents);
+
+						if (movieList != null && movieList.movies != null)
 						{
-							var movieStateGenres = new List<string>();
-							movieStateGenres.AddRange(movieState.Genres);
-
-							var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);							
-							await movieGrain.Update(new MovieApiData
+							foreach (var movieState in movieList.movies)
 							{
-								Key = movieState.Key,
-								Name = movieState.Name,
-								Description = movieState.Description,
-								Genres = movieStateGenres,
-								Rate = movieState.Rate,
-								Length = movieState.Length,
-								Img = movieState.Img
-							});
+								var movieStateGenres = new List<string>();
+								movieStateGenres.AddRange(movieState.Genres);
 
-							// update movie list about this new movie
-							MovieInfo movieInfo = new MovieInfo
-							{
-								Key = movieState.Key,
-								Name = movieState.Name,
-								Description = movieState.Description,
-								Genres = movieState.Genres,
-								Rate = movieState.Rate
-							};
+								var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);
+								await movieGrain.Update(new MovieApiData
+								{
+									Key = movieState.Key,
+									Name = movieState.Name,
+									Description = movieState.Description,
+									Genres = movieStateGenres,
+									Rate = movieState.Rate,
+									Length = movieState.Length,
+									Img = movieState.Img
+								});
 
-							var movieListGrain = _grainFactory.GetGrain<IMovieListGrain>(_appInfo.GrainPrimaryKey);
-							await movieListGrain.AddMovie(movieInfo);
+								// update movie list about this new movie
+								MovieInfo movieInfo = new MovieInfo
+								{
+									Key = movieState.Key,
+									Name = movieState.Name,
+									Description = movieState.Description,
+									Genres = movieState.Genres,
+									Rate = movieState.Rate
+								};
+
+								var movieListGrain = _grainFactory.GetGrain<IMovieListGrain>(_appInfo.GrainPrimaryKey);
+								await movieListGrain.AddMovie(movieInfo);
+							}
 						}
+					}
+					else
+					{
+						Console.WriteLine($"ERROR: empty movies file [{_appInfo.MoviesPath}].");
 					}
 				}
 				else
 				{
-					Console.WriteLine("WARNING - check if movies file has content.");
+					Console.WriteLine("ERROR: unspecified 'moviesPath' setting in config file / specified movies file does not exist.");
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Console.WriteLine("WARNING - check if movies file is specified in the moviesPath key in config and check if the file exists.");
+				Console.WriteLine($"ERROR: {ex.Message}");
 			}
 		}
 	}

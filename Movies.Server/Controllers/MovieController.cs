@@ -16,7 +16,12 @@ namespace Movies.Server.Controllers
 			_client = client;
 		}		
 
-		[HttpPost]
+		/// <summary>
+		/// Create a movie entry and add it to the movie system.
+		/// </summary>
+		/// <param name="movieApiData">MovieApiData instance.</param>
+		/// <returns></returns>
+		[HttpPost]		
 		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData)
 		{
 			//Clean the key

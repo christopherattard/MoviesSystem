@@ -11,7 +11,7 @@ namespace Movies.Server.Gql.App
 		{
 			Name = "AppQueries";
 
-			Field<ListGraphType<MovieInfoGraphType>>("getallmovies",
+			Field<ListGraphType<MovieApiDataGraphType>>("getallmovies",
 				resolve: ctx => movieListGrainClient.GetAllMovies()
 			);
 
@@ -25,7 +25,7 @@ namespace Movies.Server.Gql.App
 							}
 			}*/
 
-			Field<ListGraphType<MovieInfoGraphType>>("gettopmovies",
+			Field<ListGraphType<MovieApiDataGraphType>>("gettopmovies",
 				arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "topcount" }),
 				resolve: context => movieListGrainClient.GetTopMovies(context.GetArgument<int>("topcount"))
 				);
@@ -40,7 +40,7 @@ namespace Movies.Server.Gql.App
 										}
 			}*/			
 			
-			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbysearch",
+			Field<ListGraphType<MovieApiDataGraphType>>("getmoviesbysearch",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "search" }),
 				resolve: context => movieListGrainClient.GetMoviesBySearch(context.GetArgument<string>("search"))
 				);
@@ -55,7 +55,7 @@ namespace Movies.Server.Gql.App
 														}
 			}*/
 
-			Field<ListGraphType<MovieInfoGraphType>>("getmoviesbygenre",
+			Field<ListGraphType<MovieApiDataGraphType>>("getmoviesbygenre",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "genre" }),
 				resolve: context => movieListGrainClient.GetMoviesByGenre(context.GetArgument<string>("genre"))
 				);
@@ -72,7 +72,7 @@ namespace Movies.Server.Gql.App
 
 			Field<MovieApiDataGraphType>("getmoviedetails",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "moviekey" }),
-				resolve: context => movieGrainClient.GetMovieDetails(context.GetArgument<string>("moviekey"))
+				resolve: context => movieListGrainClient.GetMovieDetails(context.GetArgument<string>("moviekey"))
 				);
 
 			/*{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
@@ -109,6 +110,48 @@ namespace Movies.Core
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Split a string into substrings and ensuring there are no empty, null and duplicate substrings. 
+		/// </summary>
+		/// <param name="str">Current value.</param>
+		/// <returns>List of substrings.</returns>
+		public static List<string> SplitDistinct(this string value)
+		{
+			const string STRING_SEPARATORS = " ,";
+			
+			try
+			{
+				//Clean up the search words
+				if (string.IsNullOrWhiteSpace(value))
+				{
+					return null;
+				}
+
+				List<string> cleanSubstrings = new List<string>();
+				var searchWords = value.Split(STRING_SEPARATORS.ToCharArray());
+				foreach (string word in searchWords)
+				{
+					if (!string.IsNullOrWhiteSpace(word) && !cleanSubstrings.Contains(word))
+					{
+						cleanSubstrings.Add(word);
+					}
+				}
+
+				if (cleanSubstrings.Count == 0)
+				{
+					return null;
+				}
+				else
+				{
+					return cleanSubstrings;
+				}
+			}
+			catch (Exception)
+			{
+				return null;
+			}
 		}
 	}
 }

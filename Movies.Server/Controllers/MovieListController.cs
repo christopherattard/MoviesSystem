@@ -29,39 +29,29 @@ namespace Movies.Server.Controllers
 
 		[HttpGet("")]
 		[ResponseCache(Duration = 30)]
-		public async Task<List<MovieInfo>> GetAllMovies()
-		{			
-			List<MovieInfo> list = await _client.GetAllMovies();
-			return list;
-		}
+		public async Task<List<MovieApiData>> GetAllMovies() => 
+			await _client.GetAllMovies();
 
 		[HttpGet("{movieKey}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "movieKey" })]
-		public async Task<MovieApiData> GetMovieDetails(string movieKey)
-		{ 
-			var result = await _client.GetMovieDetails(movieKey).ConfigureAwait(false);
-			return result;			
-		}
+		public async Task<MovieApiData> GetMovieDetails(string movieKey) => 
+			await _client.GetMovieDetails(movieKey).ConfigureAwait(false);
 
 		[HttpGet("genre/{genre}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "genre" })]
-		public async Task<List<MovieInfo>> GetMoviesByGenre(string genre)
-		{		
-			var result = await _client.GetMoviesByGenre(genre).ConfigureAwait(false);
-			return result;
-		}
+		public async Task<List<MovieApiData>> GetMoviesByGenre(string genre) =>
+			await _client.GetMoviesByGenre(genre).ConfigureAwait(false);			
+		
 
 		[HttpGet("search/{search}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "search" })]
-		public async Task<List<MovieInfo>> GetMoviesBySearch(string search)
-		{
-			var result = await _client.GetMoviesBySearch(search).ConfigureAwait(false);
-			return result;
-		}
+		public async Task<List<MovieApiData>> GetMoviesBySearch(string search) => 
+			await _client.GetMoviesBySearch(search).ConfigureAwait(false);			
+		
 
 		[HttpGet("top/{topCount}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "topCount" })]
-		public async Task<List<MovieInfo>> GetTopMovies(int topCount)
+		public async Task<List<MovieApiData>> GetTopMovies(int topCount)
 		{
 			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
 			return result;
@@ -70,27 +60,34 @@ namespace Movies.Server.Controllers
 		[HttpPost("getToken")]
 		[AllowAnonymous]
 		public async Task<string> GetToken([FromBody] LoginModel loginModel)
-		{						
-			if (loginModel != null && loginModel.Username == _appInfo.ApiUsername && loginModel.Password == _appInfo.ApiPassword)
+		{
+			try
 			{
-				var tokenHandler = new JwtSecurityTokenHandler();
-				var apiKey = Encoding.ASCII.GetBytes(_appInfo.ApiKey);
-				var tokenDescriptor = new SecurityTokenDescriptor
+				if (loginModel != null && loginModel.Username == _appInfo.ApiUsername && loginModel.Password == _appInfo.ApiPassword)
 				{
-					Subject = new ClaimsIdentity(new Claim[]
+					var tokenHandler = new JwtSecurityTokenHandler();
+					var apiKey = Encoding.ASCII.GetBytes(_appInfo.ApiKey);
+					var tokenDescriptor = new SecurityTokenDescriptor
 					{
+						Subject = new ClaimsIdentity(new Claim[]
+						{
 						new Claim(ClaimTypes.Name, loginModel.Username)
-					}),
-					Expires = DateTime.UtcNow.AddHours(6),
-					SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(apiKey), SecurityAlgorithms.HmacSha256Signature)
-				};
-				var token = tokenHandler.CreateToken(tokenDescriptor);
-				var tokenString = tokenHandler.WriteToken(token);
+						}),
+						Expires = DateTime.UtcNow.AddHours(6),
+						SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(apiKey), SecurityAlgorithms.HmacSha256Signature)
+					};
+					var token = tokenHandler.CreateToken(tokenDescriptor);
+					var tokenString = tokenHandler.WriteToken(token);
 
-				return tokenString;
-			
+					return tokenString;
+
+				}
+				return "Unauthorized access.";
 			}
-			return "Unauthorized access.";
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
 		}
 	}
 }

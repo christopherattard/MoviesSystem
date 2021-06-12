@@ -8,7 +8,6 @@ namespace Movies.Contracts
 {
 	public interface IMovieGrainClient
 	{
-		Task<MovieApiData> CreateMovie(MovieApiData movieApiData);
-		Task<MovieApiData> GetMovieDetails(string movieKey);
+		Task<MovieApiData> CreateMovie(MovieApiData movieApiData);		
 	}
 }

@@ -10,10 +10,10 @@ namespace Movies.Contracts
 	{
 		Task AddMovie(MovieInfo movieInfo);
 		Task DeleteMovie(string movieId);
-		Task<MovieApiData> GetMovieDetails(string movieKey);
-		Task<List<MovieInfo>> GetAllMovies();
-		Task<List<MovieInfo>> GetTopMovies(int topCount);
-		Task<List<MovieInfo>> GetMoviesByGenre(string genre);
-		Task<List<MovieInfo>> GetMoviesBySearch(string search);
+		Task<List<MovieApiData>> GetAllMovies();
+		Task<MovieApiData> GetMovieDetails(string movieKey);		
+		Task<List<MovieApiData>> GetTopMovies(int topCount);
+		Task<List<MovieApiData>> GetMoviesByGenre(string genre);
+		Task<List<MovieApiData>> GetMoviesBySearch(string search);
 	}
 }

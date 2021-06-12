@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Movies.Core;
 using Movies.GrainClients;
 using Movies.Server.Gql;
@@ -86,7 +87,19 @@ namespace Movies.Server
 			services.AddResponseCaching();
 			services.AddControllers()
 			.AddNewtonsoftJson();
-			services.AddSwaggerGen();
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Version = "v1",
+					Title = "MovieSystem API",
+					Description = "A MovieSystem Web API",
+					Contact = new OpenApiContact
+					{
+						Name = "Christopher Attard",						
+					}					
+				});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
