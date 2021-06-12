@@ -6,10 +6,22 @@ namespace Movies.Tests
 {
     public class PreloadGrainStartupTaskTests
     {
-        [Fact]
-        public void JSONFile_FileExists_True()
+		private const string MOVIES_PATH = @"C:\\Projects\\MoviesSystem\\movies.json";
+
+		[Fact]
+        public void MoviesFile_FileExists_True()
         {
-			Assert.True(File.Exists(@"C:\\Projects\\MoviesSystem\\movies.json"));
+			Assert.True(File.Exists(MOVIES_PATH));
         }
-    }
+
+		[Fact]
+		public void MoviesFile_FileIsNotEmpty_True()
+		{
+			Assert.True(File.Exists(MOVIES_PATH));
+
+			var fileContents = File.ReadAllText(MOVIES_PATH);
+
+			Assert.True(!string.IsNullOrWhiteSpace(fileContents));
+		}
+	}
 }
