@@ -1,5 +1,6 @@
 ﻿using GraphiQl;
 using GraphQL.Types;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,12 +8,15 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Movies.Core;
 using Movies.GrainClients;
 using Movies.Server.Gql;
 using Movies.Server.Gql.App;
 using Movies.Server.Infrastructure;
 using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Movies.Server
 {
@@ -33,7 +37,32 @@ namespace Movies.Server
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddCustomAuthentication();
+			//services.AddCustomAuthentication();
+			var apiKey = Encoding.ASCII.GetBytes(_appInfo.ApiKey);
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+				.AddJwtBearer(x =>
+				{
+					x.Events = new JwtBearerEvents
+					{
+						OnTokenValidated = context =>
+						{
+							return Task.CompletedTask;
+						}
+					};
+					x.RequireHttpsMetadata = false;
+					x.SaveToken = false;
+					x.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuerSigningKey = true,
+						IssuerSigningKey = new SymmetricSecurityKey(apiKey),
+						ValidateIssuer = false,
+						ValidateAudience = false
+					};
+				});
 			
 			services.AddCors(o => o.AddPolicy("TempCorsPolicy", builder =>
 			{
@@ -99,7 +128,7 @@ namespace Movies.Server
 					new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
 					{
 						Public = true,
-						MaxAge = TimeSpan.FromSeconds(10)
+						MaxAge = TimeSpan.FromSeconds(30)
 					};
 				context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
 					new string[] { "Accept-Encoding" };
@@ -107,6 +136,7 @@ namespace Movies.Server
 				await next();
 			});
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

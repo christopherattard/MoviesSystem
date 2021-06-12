@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Contracts;
 using Movies.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Movies.Server.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize]
 	public class MovieController : Controller
 	{
 		private readonly IMovieGrainClient _client;

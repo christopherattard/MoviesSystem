@@ -5,5 +5,9 @@
   "version": "local",
   "moviesPath": "C:\\Projects\\MoviesSystem\\movies.json",
   "grainPrimaryKey": "CA",
-  "corsOrigins" : "http://localhost:6600"
+  "corsOrigins": "http://localhost:6600",
+  "apiKey": "68a8bc57-12c6-4ee9-b5e9-43ece4525059",
+  "apiUsername": "APIusername",
+  "apiPassword": "APIpassword"
+
 }

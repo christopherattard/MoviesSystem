@@ -58,6 +58,23 @@ namespace Movies.Core
 		/// The origins that are specified to the CORS policy.
 		/// </summary>
 		string CorsOrigins { get; set; }
+
+		/// <summary>
+		/// The API key used for authentication.
+		/// </summary>
+		string ApiKey { get; set; }
+		
+		/// <summary>
+		/// The username for API authentication
+		/// </summary>
+		string ApiUsername { get; set; }
+		
+		/// <summary>
+		/// The password for API authentication
+		/// </summary>
+		string ApiPassword { get; set; }
+
+
 	}
 
 	public class AppInfo : IAppInfo
@@ -73,6 +90,9 @@ namespace Movies.Core
 		public string MoviesPath { get; set; }
 		public string GrainPrimaryKey { get; set; }
 		public string CorsOrigins { get; set; }
+		public string ApiKey { get; set; }
+		public string ApiUsername { get; set; }
+		public string ApiPassword { get; set; }
 
 		private static readonly Dictionary<string, string> EnvironmentMapping = new Dictionary<string, string>
 		{
@@ -101,6 +121,9 @@ namespace Movies.Core
 			MoviesPath = config.GetValue("moviesPath", "");
 			GrainPrimaryKey = config.GetValue("grainPrimaryKey", "");
 			CorsOrigins = config.GetValue("corsOrigins", "");
+			ApiKey = config.GetValue("apiKey", "");
+			ApiUsername = config.GetValue("apiUsername", "");
+			ApiPassword = config.GetValue("apiPassword", "");
 
 			if (string.IsNullOrEmpty(Environment))
 				throw new InvalidOperationException("Environment is not set. Please specify the environment via 'ASPNETCORE_ENVIRONMENT'");
