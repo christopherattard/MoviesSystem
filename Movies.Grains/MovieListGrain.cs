@@ -34,33 +34,7 @@ namespace Movies.Grains
 			await base.WriteStateAsync();
 
 			return;
-		}
-
-		public async Task DeleteMovie(string movieKey)
-		{
-
-			// check args
-			if (string.IsNullOrWhiteSpace(movieKey))
-			{
-				return;
-			}
-
-			if (State.MovieList == null)
-			{
-				State.MovieList = new List<MovieInfo>();
-			}
-
-			// delete this event key from our active list if it exists 
-			int index = State.MovieList.FindIndex(movie => movie.Key == movieKey);
-			if (index >= 0)
-			{
-				State.MovieList.RemoveAt(index);  // remove it
-
-				await base.WriteStateAsync();
-			}
-
-			return;
-		}
+		}		
 
 		public async Task<List<MovieInfo>> GetAllMovies()
 		{

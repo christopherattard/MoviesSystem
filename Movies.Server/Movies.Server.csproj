@@ -53,6 +53,11 @@
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Movies.Contracts\Movies.Contracts.csproj" />
     <ProjectReference Include="..\Movies.Core\Movies.Core.csproj" />

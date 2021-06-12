@@ -30,20 +30,7 @@ namespace Movies.GrainClients
 			{
 				return Task.FromException(ex);
 			}
-		}
-
-		public Task DeleteMovie(string movieId) 
-		{
-			try
-			{
-				var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
-				return grain.DeleteMovie(movieId);
-			}
-			catch (Exception ex)
-			{
-				return Task.FromException(ex);
-			}
-		}
+		}		
 
 		public async Task<List<MovieApiData>> GetAllMovies()
 		{
@@ -88,12 +75,12 @@ namespace Movies.GrainClients
 			}
 		}
 
-		public async Task<List<MovieApiData>> GetMoviesByGenre(string genre)
+		public async Task<List<MovieApiData>> GetMoviesByGenre(string genres)
 		{
 			try
 			{
 				var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
-				List<MovieInfo> movieInfoList = await grain.GetMoviesByGenre(genre);
+				List<MovieInfo> movieInfoList = await grain.GetMoviesByGenre(genres);
 				return convertToApiData(movieInfoList);
 			}
 			catch (Exception ex)
@@ -155,6 +142,7 @@ namespace Movies.GrainClients
 				return new MovieApiData
 				{
 					Key = movieInfo.Key,
+					Name = movieInfo.Name,
 					Description = movieInfo.Description,
 					Genres = genres,
 					Rate = movieInfo.Rate,

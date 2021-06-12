@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "c39c3e50-2a28-459b-9cdf-3ac378e6c064",
+		"name": "MoviesSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateMovie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNDU3ODQyLCJleHAiOjE2MjM0Nzk0NDIsImlhdCI6MTYyMzQ1Nzg0Mn0.nTpi0POsl_e5xu0YtfmpC4DVvoOsV3htr5sAjGRP4fc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Key\": \"new-film-2\",\r\n    \"Name\": \"New Film 2\",\r\n    \"Description\": \"The 2 film\",\r\n    \"Genres\": [        \r\n        \"tragedy\",\r\n        \"comedy\"                       \r\n    ],\r\n    \"Rate\": \"9.4\",\r\n    \"Length\": \"1h 44mins\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/api/movie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMovie",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Key\": \"new-film-5\",\r\n    \"Name\": \"New Film 5\",\r\n    \"Description\": \"The 5 film II\",\r\n    \"Genres\": [        \r\n        \"romantic\",\r\n        \"tragedy\"                \r\n    ],\r\n    \"Rate\": \"6.5\",\r\n    \"Length\": \"1h 19mins\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/api/movie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6600/api/movielist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMoviesByGenre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6600/api/movielist/genre/comedy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist",
+						"genre",
+						"comedy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovieDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6600/api/movielist/new-film-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist",
+						"new-film-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMoviesBySearch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6600/api/movielist/search/film-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist",
+						"search",
+						"film-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTopMovies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6600/api/movielist/top/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist",
+						"top",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n    getallmovies\r\n    {\r\n        movies\r\n        {\r\n            name\r\n        }\r\n    }\r\n\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetToken",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"APIusername\",\r\n    \"Password\" : \"APIpassword\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/api/movielist/gettoken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movielist",
+						"gettoken"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNTA4NTE0LCJleHAiOjE2MjM1MzAxMTQsImlhdCI6MTYyMzUwODUxNH0.nVikpjyj11xWSwHG5k2Kpp_GenJeEhEwzolH9ofAG3k",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

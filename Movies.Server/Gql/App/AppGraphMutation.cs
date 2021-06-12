@@ -26,7 +26,8 @@ namespace Movies.Server.Gql.App
 												genres,
 												rate,
 												length,
-												img
+												img,
+												errormessage
 											}
 				}			
 			 
@@ -59,7 +60,8 @@ namespace Movies.Server.Gql.App
 												genres,
 												rate,
 												length,
-												img
+												img,
+												errormessage
 											}
 				}			
 			 

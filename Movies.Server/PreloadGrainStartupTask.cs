@@ -48,7 +48,7 @@ namespace Movies.Server
 								movieStateGenres.AddRange(movieState.Genres);
 
 								var movieGrain = _grainFactory.GetGrain<IMovieGrain>(movieState.Key);
-								await movieGrain.Update(new MovieApiData
+								await movieGrain.CreateOrUpdate(new MovieApiData
 								{
 									Key = movieState.Key,
 									Name = movieState.Name,

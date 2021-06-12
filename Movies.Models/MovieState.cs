@@ -14,5 +14,6 @@ namespace Movies.Models
 		public decimal Rate { get; set; }
 		public string Length { get; set; }
 		public string Img { get; set; }
+		public bool Activated { get; set; } = false;
 	}	
 }

@@ -11,7 +11,7 @@ namespace Movies.Grains
 	[StorageProvider(ProviderName = "Default")]
 	public class MovieGrain : Grain<MovieState>, IMovieGrain
 	{
-		public async Task<MovieState> Update(MovieApiData movieApiData)
+		public async Task<MovieState> CreateOrUpdate(MovieApiData movieApiData)
 		{
 			string key = this.GetPrimaryKeyString();
 
@@ -23,6 +23,8 @@ namespace Movies.Grains
 			State.Rate = movieApiData.Rate;
 			State.Length = movieApiData.Length;
 			State.Img = movieApiData.Img;
+			
+			State.Activated = true;
 
 			// Clean the genres and store them
 			List<string> cleanGenres = new List<string>();
@@ -45,7 +47,8 @@ namespace Movies.Grains
 			Name = State.Name,
 			Description = State.Description,
 			Rate = State.Rate,
-			Genres = State.Genres
+			Genres = State.Genres,
+			Activated = State.Activated
 		};
 	}
 }

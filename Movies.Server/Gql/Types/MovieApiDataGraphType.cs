@@ -14,7 +14,7 @@ namespace Movies.Server.Gql.Types
 			Field(x => x.Rate, nullable: true).Description("Movie rating.");
 			Field(x => x.Length, nullable: true).Description("Movie length.");
 			Field(x => x.Img, nullable: true).Description("Movie image.");
-
+			Field(x => x.ErrorMessage, nullable: true).Description("Errors encountered during API operations.");
 		}
 	}
 }

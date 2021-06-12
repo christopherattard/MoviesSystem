@@ -14,6 +14,7 @@ namespace Movies.Models
 		public string Description { get; set; }
 		public decimal Rate { get; set; }
 		public List<string> Genres { get; set; }
+		public bool Activated { get; set; }
 	}
 
 	/// <summary>

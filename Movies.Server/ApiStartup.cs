@@ -16,6 +16,8 @@ using Movies.Server.Gql;
 using Movies.Server.Gql.App;
 using Movies.Server.Infrastructure;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,7 +41,7 @@ namespace Movies.Server
 		public void ConfigureServices(IServiceCollection services)
 		{
 			//services.AddCustomAuthentication();
-			var apiKey = Encoding.ASCII.GetBytes(_appInfo.ApiKey);
+			var symmetricKey = Encoding.ASCII.GetBytes(_appInfo.SymmetricKey);
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,7 +61,7 @@ namespace Movies.Server
 					x.TokenValidationParameters = new TokenValidationParameters
 					{
 						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = new SymmetricSecurityKey(apiKey),
+						IssuerSigningKey = new SymmetricSecurityKey(symmetricKey),
 						ValidateIssuer = false,
 						ValidateAudience = false
 					};
@@ -93,12 +95,17 @@ namespace Movies.Server
 				{
 					Version = "v1",
 					Title = "MovieSystem API",
-					Description = "A MovieSystem Web API",
+					Description = "A MovieSystem Web API.",
 					Contact = new OpenApiContact
 					{
 						Name = "Christopher Attard",						
 					}					
 				});
+
+				// Set the comments path for the Swagger JSON and UI.
+				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+				c.IncludeXmlComments(xmlPath);
 			});
 		}
 

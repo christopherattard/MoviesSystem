@@ -60,9 +60,9 @@ namespace Movies.Core
 		string CorsOrigins { get; set; }
 
 		/// <summary>
-		/// The API key used for authentication.
+		/// The symmetric key used for authentication.
 		/// </summary>
-		string ApiKey { get; set; }
+		string SymmetricKey { get; set; }
 		
 		/// <summary>
 		/// The username for API authentication
@@ -90,7 +90,7 @@ namespace Movies.Core
 		public string MoviesPath { get; set; }
 		public string GrainPrimaryKey { get; set; }
 		public string CorsOrigins { get; set; }
-		public string ApiKey { get; set; }
+		public string SymmetricKey { get; set; }
 		public string ApiUsername { get; set; }
 		public string ApiPassword { get; set; }
 
@@ -121,7 +121,7 @@ namespace Movies.Core
 			MoviesPath = config.GetValue("moviesPath", "");
 			GrainPrimaryKey = config.GetValue("grainPrimaryKey", "");
 			CorsOrigins = config.GetValue("corsOrigins", "");
-			ApiKey = config.GetValue("apiKey", "");
+			SymmetricKey = config.GetValue("symmetricKey", "");
 			ApiUsername = config.GetValue("apiUsername", "");
 			ApiPassword = config.GetValue("apiPassword", "");
 

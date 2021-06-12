@@ -5,7 +5,7 @@ using System.Text;
 namespace Movies.Models
 {
 	/// <summary>
-	/// MovieApiData object
+	/// MovieApiData object to return API data.
 	/// </summary>
 	public class MovieApiData
 	{

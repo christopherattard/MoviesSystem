@@ -21,7 +21,8 @@ namespace Movies.Server.Gql.App
 								name,
 								description,
 								rate,
-								genres
+								genres,
+								errormessage
 							}
 			}*/
 
@@ -36,10 +37,11 @@ namespace Movies.Server.Gql.App
 											name,
 											description,
 											rate,
-											genres
+											genres,
+											errormessage
 										}
-			}*/			
-			
+			}*/
+
 			Field<ListGraphType<MovieApiDataGraphType>>("getmoviesbysearch",
 				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "search" }),
 				resolve: context => movieListGrainClient.GetMoviesBySearch(context.GetArgument<string>("search"))
@@ -51,22 +53,24 @@ namespace Movies.Server.Gql.App
 															name,
 															description,
 															rate,
-															genres
+															genres,
+															errormessage
 														}
 			}*/
 
 			Field<ListGraphType<MovieApiDataGraphType>>("getmoviesbygenre",
-				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "genre" }),
-				resolve: context => movieListGrainClient.GetMoviesByGenre(context.GetArgument<string>("genre"))
+				arguments: new QueryArguments(new QueryArgument<StringGraphType> { Name = "genres" }),
+				resolve: context => movieListGrainClient.GetMoviesByGenre(context.GetArgument<string>("genres"))
 				);
 
 			/*{
-				getmoviesbygenre(genre: "crime,drama"){
+				getmoviesbygenre(genres: "crime,drama"){
 														key,
 														name,
 														description,
 														rate,
-														genres
+														genres,
+														errormessage
 													}
 			}*/
 
@@ -83,7 +87,8 @@ namespace Movies.Server.Gql.App
 																				genres,
 																				rate,
 																				length,
-																				img
+																				img,
+																				errormessage
 																			}
 			}*/
 

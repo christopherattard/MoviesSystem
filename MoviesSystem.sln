@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{C5911799
 	ProjectSection(SolutionItems) = preProject
 		app-info.json = app-info.json
 		Directory.Build.props = Directory.Build.props
+		MoviesSystem.postman_collection.json = MoviesSystem.postman_collection.json
 		NuGet.Config = NuGet.Config
 		readme.md = readme.md
 	EndProjectSection
