@@ -22,7 +22,7 @@ namespace Movies.Server.Gql.App
 								description,
 								rate,
 								genres,
-								errormessage
+								errors
 							}
 			}*/
 
@@ -38,7 +38,7 @@ namespace Movies.Server.Gql.App
 											description,
 											rate,
 											genres,
-											errormessage
+											errors
 										}
 			}*/
 
@@ -54,7 +54,7 @@ namespace Movies.Server.Gql.App
 															description,
 															rate,
 															genres,
-															errormessage
+															errors
 														}
 			}*/
 
@@ -70,7 +70,7 @@ namespace Movies.Server.Gql.App
 														description,
 														rate,
 														genres,
-														errormessage
+														errors
 													}
 			}*/
 
@@ -88,7 +88,7 @@ namespace Movies.Server.Gql.App
 																				rate,
 																				length,
 																				img,
-																				errormessage
+																				errors
 																			}
 			}*/
 

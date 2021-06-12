@@ -72,14 +72,8 @@ namespace Movies.Server.Controllers
 		/// <param name="movieApiData">MovieApiData instance with the movie information.</param>
 		/// <returns>The created movie.</returns>
 		[HttpPost]		
-		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData)
-		{
-			//Clean the key
-			movieApiData.Key = movieApiData.Key.Trim().ToLower();
-
-			var result = await _client.CreateMovie(movieApiData).ConfigureAwait(false);
-			return result;
-		}
+		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData) => 
+			await _client.CreateMovie(movieApiData).ConfigureAwait(false);		
 
 		/// <summary>
 		/// Updates a movie entry.
@@ -87,13 +81,7 @@ namespace Movies.Server.Controllers
 		/// <param name="movieApiData">MovieApiData instance with the updated information.</param>
 		/// <returns>The updated movie.</returns>
 		[HttpPut]
-		public async Task<MovieApiData> UpdateMovie([FromBody] MovieApiData movieApiData)
-		{
-			//Clean the key
-			movieApiData.Key = movieApiData.Key.Trim().ToLower();
-
-			var result = await _client.UpdateMovie(movieApiData).ConfigureAwait(false);
-			return result;
-		}		
+		public async Task<MovieApiData> UpdateMovie([FromBody] MovieApiData movieApiData) => 
+			await _client.UpdateMovie(movieApiData).ConfigureAwait(false);				
 	}
 }

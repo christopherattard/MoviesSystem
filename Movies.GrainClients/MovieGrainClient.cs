@@ -26,7 +26,7 @@ namespace Movies.GrainClients
 				{
 					throw new Exception($"Invalid movie data.");
 				}
-				else if (movieApiData.Key.IsNullOrEmpty())
+				else if (string.IsNullOrWhiteSpace(movieApiData.Key))
 				{
 					throw new Exception($"Invalid movie key.");
 				}
@@ -72,7 +72,7 @@ namespace Movies.GrainClients
 			{
 				return new MovieApiData 
 				{
-					ErrorMessage = ex.Flatten()
+					Errors = ex.Flatten()
 				};
 			}
 		}
@@ -134,7 +134,7 @@ namespace Movies.GrainClients
 			{
 				return new MovieApiData
 				{
-					ErrorMessage = ex.Flatten()
+					Errors = ex.Flatten()
 				};
 			}
 		}

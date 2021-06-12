@@ -6,19 +6,46 @@
 	},
 	"item": [
 		{
-			"name": "CreateMovie",
+			"name": "GetToken",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNDU3ODQyLCJleHAiOjE2MjM0Nzk0NDIsImlhdCI6MTYyMzQ1Nzg0Mn0.nTpi0POsl_e5xu0YtfmpC4DVvoOsV3htr5sAjGRP4fc",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Key\": \"new-film-2\",\r\n    \"Name\": \"New Film 2\",\r\n    \"Description\": \"The 2 film\",\r\n    \"Genres\": [        \r\n        \"tragedy\",\r\n        \"comedy\"                       \r\n    ],\r\n    \"Rate\": \"9.4\",\r\n    \"Length\": \"1h 44mins\"\r\n}",
+					"raw": "{\r\n    \"Username\": \"APIusername\",\r\n    \"Password\" : \"AP1passw0rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/api/movie/gettoken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"api",
+						"movie",
+						"gettoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMovie",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Key\": \"new-film-6\",\r\n    \"Name\": \"New Film 5\",\r\n    \"Description\": \"The 5 film II\",\r\n    \"Genres\": [        \r\n        \"romantic\",\r\n        \"tragedy\"                \r\n    ],\r\n    \"Rate\": \"6.5\",\r\n    \"Length\": \"1h 19mins\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,13 +68,19 @@
 			"response": []
 		},
 		{
-			"name": "UpdateMovie",
+			"name": "CreateMovie",
 			"request": {
-				"method": "PUT",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNDU3ODQyLCJleHAiOjE2MjM0Nzk0NDIsImlhdCI6MTYyMzQ1Nzg0Mn0.nTpi0POsl_e5xu0YtfmpC4DVvoOsV3htr5sAjGRP4fc",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Key\": \"new-film-5\",\r\n    \"Name\": \"New Film 5\",\r\n    \"Description\": \"The 5 film II\",\r\n    \"Genres\": [        \r\n        \"romantic\",\r\n        \"tragedy\"                \r\n    ],\r\n    \"Rate\": \"6.5\",\r\n    \"Length\": \"1h 19mins\"\r\n}",
+					"raw": "{\r\n    \"Key\": \"new-film-2\",\r\n    \"Name\": \"New Film 2\",\r\n    \"Description\": \"The 2 film\",\r\n    \"Genres\": [        \r\n        \"tragedy\",\r\n        \"comedy\"                       \r\n    ],\r\n    \"Rate\": \"9.4\",\r\n    \"Length\": \"1h 44mins\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -117,7 +150,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/new-film-1",
+					"raw": "http://localhost:6600/api/movielist/new-film-2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,7 +159,7 @@
 					"path": [
 						"api",
 						"movielist",
-						"new-film-1"
+						"new-film-2"
 					]
 				}
 			},
@@ -138,7 +171,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/search/film-1",
+					"raw": "http://localhost:6600/api/movielist/search/gangs",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -148,7 +181,7 @@
 						"api",
 						"movielist",
 						"search",
-						"film-1"
+						"gangs"
 					]
 				}
 			},
@@ -160,7 +193,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/top/2",
+					"raw": "http://localhost:6600/api/movielist/top/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -170,21 +203,21 @@
 						"api",
 						"movielist",
 						"top",
-						"2"
+						"5"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GraphQL",
+			"name": "GraphQLQuery - getallmovies",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "graphql",
 					"graphql": {
-						"query": "{\r\n    getallmovies\r\n    {\r\n        movies\r\n        {\r\n            name\r\n        }\r\n    }\r\n\r\n}",
+						"query": "{\r\n\t\t\t\tgetallmovies{\r\n\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t}\r\n\t\t\t}",
 						"variables": ""
 					}
 				},
@@ -203,33 +236,156 @@
 			"response": []
 		},
 		{
-			"name": "GetToken",
+			"name": "GraphQLQuery - gettopmovies",
 			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Username\": \"APIusername\",\r\n    \"Password\" : \"APIpassword\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n    gettopmovies(topcount: 3){\r\n\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t}\r\n}",
+						"variables": ""
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/gettoken",
+					"raw": "http://localhost:6600/graphql",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6600",
 					"path": [
-						"api",
-						"movielist",
-						"gettoken"
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQLQuery - getmoviesbysearch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n\t\t\t\tgetmoviesbysearch(search: \"gang,gangster\"){\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQLQuery - getmoviesbygenre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n\t\t\t\tgetmoviesbygenre(genres: \"crime,drama\"){\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQLQuery - getmoviedetails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\r\n\t\t\t\tgetmoviedetails(moviekey: \"mission-impossible-rogue-nation\"){\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tlength,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\timg,\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQLMutation - createmovie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation ($movie : MovieInput!){\r\n\t\t\t\t\tcreatemovie(movie: $movie){\r\n\t\t\t\t\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\t\t\t\t\tlength,\r\n\t\t\t\t\t\t\t\t\t\t\t\timg,\r\n\t\t\t\t\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t}",
+						"variables": "{\r\n\t\t\t\t\"movie\" : {\r\n  \t\t\t\t\t\t\t\"key\" : \"new-film-1\",\r\n\t\t\t\t\t\t\t\"name\" :\"New Film 1\",\r\n\t\t\t\t\t\t\t\"description\" : \"The first film\",\r\n\t\t\t\t\t\t\t\"genres\" : [\"action\", \"romantic\"],\r\n\t\t\t\t\t\t\t\"rate\" : 6.0,\r\n\t\t\t\t\t\t\t\"length\" : \"1hr 40mins\",\r\n\t\t\t\t\t\t\t\"img\" : \"noimage.jpg\"\r\n\t\t\t\t\t\t\t}  \r\n\t\t\t}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQLMutation - updatemovie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation ($movie : MovieInput!){\r\n\t\t\t\t\tupdatemovie(movie: $movie){\r\n\t\t\t\t\t\t\t\t\t\t\t\tkey,\r\n\t\t\t\t\t\t\t\t\t\t\t\tname,\r\n\t\t\t\t\t\t\t\t\t\t\t\tdescription,\r\n\t\t\t\t\t\t\t\t\t\t\t\tgenres,\r\n\t\t\t\t\t\t\t\t\t\t\t\trate,\r\n\t\t\t\t\t\t\t\t\t\t\t\tlength,\r\n\t\t\t\t\t\t\t\t\t\t\t\timg,\r\n\t\t\t\t\t\t\t\t\t\t\t\terrors\r\n\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t}",
+						"variables": "{\r\n\t\t\t\t\"movie\" : {\r\n  \t\t\t\t\t\t\t\"key\" : \"new-film-1\",\r\n\t\t\t\t\t\t\t\"name\" :\"New Film 1 (modified)\",\r\n\t\t\t\t\t\t\t\"description\" : \"The first film (modified)\",\r\n\t\t\t\t\t\t\t\"genres\" : [\"thriller\", \"comedy\"],\r\n\t\t\t\t\t\t\t\"rate\" : 6.2,\r\n\t\t\t\t\t\t\t\"length\" : \"1hr 40mins\",\r\n\t\t\t\t\t\t\t\"img\" : \"noimage.jpg\"\r\n\t\t\t\t\t\t\t}  \r\n\t\t\t}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6600/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6600",
+					"path": [
+						"graphql"
 					]
 				}
 			},

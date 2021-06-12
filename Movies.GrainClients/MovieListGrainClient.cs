@@ -104,7 +104,7 @@ namespace Movies.GrainClients
 			{
 				return new MovieApiData
 				{
-					ErrorMessage = ex.Flatten()
+					Errors = ex.Flatten()
 				};
 			}
 		}
@@ -125,7 +125,7 @@ namespace Movies.GrainClients
 			{
 				var movieApiData = new MovieApiData
 				{
-					ErrorMessage = ex.Flatten()
+					Errors = ex.Flatten()
 				};
 				movieApiDataList.Add(movieApiData);
 				return movieApiDataList;
@@ -148,14 +148,14 @@ namespace Movies.GrainClients
 					Rate = movieInfo.Rate,
 					Length = "",
 					Img = "",
-					ErrorMessage = ""
+					Errors = ""
 				};
 			}
 			catch (Exception ex)
 			{
 				return new MovieApiData 
 				{ 
-					ErrorMessage = ex.Flatten() 
+					Errors = ex.Flatten() 
 				};
 			}
 		}
@@ -164,7 +164,7 @@ namespace Movies.GrainClients
 		{
 			List<MovieApiData> movieApiDataList = new List<MovieApiData>
 			{
-				new MovieApiData { ErrorMessage = ex.Flatten() }
+				new MovieApiData { Errors = ex.Flatten() }
 			};
 			return movieApiDataList;
 		}

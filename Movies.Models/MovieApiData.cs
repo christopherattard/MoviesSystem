@@ -40,6 +40,6 @@ namespace Movies.Models
 		/// <summary>
 		/// Stores any error message raised during the API operation.
 		/// </summary>
-		public string ErrorMessage { get; set; }
+		public string Errors { get; set; }
 	}
 }

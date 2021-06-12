@@ -27,7 +27,7 @@ namespace Movies.Server.Gql.App
 												rate,
 												length,
 												img,
-												errormessage
+												errors
 											}
 				}			
 			 
@@ -49,7 +49,7 @@ namespace Movies.Server.Gql.App
 				resolve: context =>
 				{
 					var movieApiData = context.GetArgument<MovieApiData>("movie");
-					return client.CreateMovie(movieApiData);
+					return client.UpdateMovie(movieApiData);
 				});
 
 			/*mutation ($movie : MovieInput!){
@@ -61,7 +61,7 @@ namespace Movies.Server.Gql.App
 												rate,
 												length,
 												img,
-												errormessage
+												errors
 											}
 				}			
 			 

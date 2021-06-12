@@ -19,7 +19,8 @@
 	
 4) Set Movies.Server project as the Startup project.
 
-5) Run the Xunit unit tests found in Movies.Tests project. 	
+5) Go to the Movies.Tests project and open the PreloadGrainStartupTaskTests.cs file. Update the MOVIES_PATH constant string to the path of the movies.json file.
+Run the Xunit unit tests found in this class. 	
 
 6) Build and run the solution.
 
@@ -34,6 +35,8 @@ Start from the GetToken request to obtain a security token for the API. Specify 
 in the body of the POST request. The response returns a security token. Copy it and go to the MoviesSystem parent folder. Under Authorization tab, ensure that
 Type is set to *Bearer Token*, paste the security token in the Token inputbox and press 'Save'. All the other API requests are set to inherit this authorization 
 token.
+
+You can now run the other requests one by one and observe their responses.
 
 
 The application has the following functionality:
@@ -53,7 +56,7 @@ The application has the following functionality:
 - **Update Movie**
   - Update movies data.  
 
-### Technologies required
+### Technologies user
 
 - [ASP.NET (AspNetCore)](https://dotnet.microsoft.com/apps/aspnet) (3.1 or higher)
 - [Microsoft Orleans](https://dotnet.github.io/orleans/) (3 or higher)
