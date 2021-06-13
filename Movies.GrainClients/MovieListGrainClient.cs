@@ -93,11 +93,22 @@ namespace Movies.GrainClients
 		{
 			try
 			{
+				if (string.IsNullOrWhiteSpace(movieKey))
+				{
+					throw new Exception("Invalid movie key.");
+				}
+				
 				//Clean the key
 				movieKey = movieKey.Trim().ToLower();
 
 				var grain = _grainFactory.GetGrain<IMovieListGrain>(_grainPrimaryKey);
 				var movieInfo = await grain.GetMovieDetails(movieKey);
+
+				if (movieInfo == null)
+				{
+					throw new Exception($"Movie ({movieKey}) not found.");
+				}
+				
 				return convertToApiData(movieInfo);
 			}
 			catch (Exception ex)

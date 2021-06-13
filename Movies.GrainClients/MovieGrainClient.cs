@@ -70,10 +70,8 @@ namespace Movies.GrainClients
 			}
 			catch (Exception ex)
 			{
-				return new MovieApiData 
-				{
-					Errors = ex.Flatten()
-				};
+				movieApiData.Errors = ex.Flatten();
+				return movieApiData;				
 			}
 		}
 
@@ -132,10 +130,8 @@ namespace Movies.GrainClients
 			}
 			catch (Exception ex)
 			{
-				return new MovieApiData
-				{
-					Errors = ex.Flatten()
-				};
+				movieApiData.Errors = ex.Flatten();
+				return movieApiData;
 			}
 		}
 	}

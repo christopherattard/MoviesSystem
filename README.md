@@ -29,12 +29,15 @@ Run the Xunit unit tests found in this class.
 Load the Swagger UI at the web application's root (for e.g. http://localhost:6600). From here one can find the definition of each API controller and method.
 
 Open Postman and import the MoviesSystem collection file *MoviesSystem.postman_collection.json* found in the MoviesSystem solution folder. 
-The format of this collection is Postman version 2.1. 
+The format of this collection is Postman version 2.1.
+
+Go to the MoviesSystem collection folder and under Variables tab set the variable *hostname* value to the host address (for e.g. http://localhost:6600). Press 
+the 'Save' button.
 
 Start from the GetToken request to obtain a security token for the API. Specify the username and password (that were set up in the *app-info.json* config file) 
 in the body of the POST request. The response returns a security token. Copy it and go to the MoviesSystem parent folder. Under Authorization tab, ensure that
-Type is set to *Bearer Token*, paste the security token in the Token inputbox and press 'Save'. All the other API requests are set to inherit this authorization 
-token.
+Type is set to *Bearer Token*, paste the security token in the Token inputbox and press the 'Save' button. All the other API requests are set to inherit this 
+authorization token.
 
 You can now run the other requests one by one and observe their responses.
 

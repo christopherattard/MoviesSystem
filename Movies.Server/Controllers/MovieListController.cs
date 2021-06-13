@@ -27,9 +27,12 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <returns>List of all movies.</returns>
 		[HttpGet("")]
-		//[ResponseCache(Duration = 30)]
-		public async Task<List<MovieApiData>> GetAllMovies() => 
-			await _client.GetAllMovies();
+		[ResponseCache(Duration = 30)]
+		public async Task<IActionResult> GetAllMovies()
+		{
+			var result = await _client.GetAllMovies();
+			return Ok(result);
+		}
 
 		/// <summary>
 		/// Get details about a specific movie.
@@ -38,8 +41,11 @@ namespace Movies.Server.Controllers
 		/// <returns>The details of the movie.</returns>
 		[HttpGet("{movieKey}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "movieKey" })]
-		public async Task<MovieApiData> GetMovieDetails(string movieKey) => 
-			await _client.GetMovieDetails(movieKey).ConfigureAwait(false);
+		public async Task<IActionResult> GetMovieDetails(string movieKey)
+		{
+			var result = await _client.GetMovieDetails(movieKey);
+			return checkAndReturnResult(result);
+		}
 
 		/// <summary>
 		/// Get those movies associated with the specified genre/s.
@@ -48,8 +54,11 @@ namespace Movies.Server.Controllers
 		/// <returns>List of associated movies.</returns>
 		[HttpGet("genre/{genres}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "genres" })]
-		public async Task<List<MovieApiData>> GetMoviesByGenre(string genres) =>
-			await _client.GetMoviesByGenre(genres).ConfigureAwait(false);		
+		public async Task<IActionResult> GetMoviesByGenre(string genres)
+		{
+			var result = await _client.GetMoviesByGenre(genres);
+			return Ok(result);
+		}
 
 		/// <summary>
 		/// Get those movies associated with the search keywords.
@@ -58,8 +67,11 @@ namespace Movies.Server.Controllers
 		/// <returns>List of associated movies.</returns>
 		[HttpGet("search/{search}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "search" })]
-		public async Task<List<MovieApiData>> GetMoviesBySearch(string search) => 
-			await _client.GetMoviesBySearch(search).ConfigureAwait(false);		
+		public async Task<IActionResult> GetMoviesBySearch(string search)
+		{
+			var result = await _client.GetMoviesBySearch(search);
+			return Ok(result);
+		}
 
 		/// <summary>
 		/// Get the top movies by rate.
@@ -68,8 +80,29 @@ namespace Movies.Server.Controllers
 		/// <returns>list of top movies.</returns>
 		[HttpGet("top/{topCount}")]
 		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "topCount" })]
-		public async Task<List<MovieApiData>> GetTopMovies(int topCount) =>
-			await _client.GetTopMovies(topCount).ConfigureAwait(false);	
-		
+		public async Task<IActionResult> GetTopMovies(int topCount)
+		{
+			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
+			return Ok(result);
+		}
+
+
+		#region Helper methods
+
+		private IActionResult checkAndReturnResult(MovieApiData result)
+		{
+			if (string.IsNullOrWhiteSpace(result.Errors))
+			{
+				return Ok(result);
+			}
+			else
+			{
+				return BadRequest(new MovieApiData { Errors = result.Errors });
+			}
+		}	
+			
+		#endregion
+
+
 	}
 }

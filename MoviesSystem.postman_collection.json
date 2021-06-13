@@ -23,12 +23,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/api/movie/gettoken",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movie/gettoken",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movie",
@@ -53,12 +51,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/api/movie",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movie",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movie"
@@ -80,7 +76,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Key\": \"new-film-2\",\r\n    \"Name\": \"New Film 2\",\r\n    \"Description\": \"The 2 film\",\r\n    \"Genres\": [        \r\n        \"tragedy\",\r\n        \"comedy\"                       \r\n    ],\r\n    \"Rate\": \"9.4\",\r\n    \"Length\": \"1h 44mins\"\r\n}",
+					"raw": "{\r\n    \"Key\": \"new-film-1\",\r\n    \"Name\": \"New Film 1\",\r\n    \"Description\": \"The 1 film\",\r\n    \"Genres\": [        \r\n        \"tragedy\",\r\n        \"comedy\"                       \r\n    ],\r\n    \"Rate\": \"9.4\",\r\n    \"Length\": \"1h 44mins\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,12 +84,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/api/movie",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movie",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movie"
@@ -108,12 +102,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movielist",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movielist"
@@ -128,12 +120,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/genre/comedy",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movielist/genre/comedy",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movielist",
@@ -150,16 +140,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/new-film-2",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movielist/new-film-1",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movielist",
-						"new-film-2"
+						"new-film-1"
 					]
 				}
 			},
@@ -171,12 +159,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/search/gangs",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movielist/search/gangs",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movielist",
@@ -193,12 +179,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6600/api/movielist/top/5",
-					"protocol": "http",
+					"raw": "{{hostname}}/api/movielist/top/5",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"api",
 						"movielist",
@@ -222,12 +206,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -248,12 +230,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -274,12 +254,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -300,12 +278,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -326,12 +302,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -352,12 +326,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -378,12 +350,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:6600/graphql",
-					"protocol": "http",
+					"raw": "{{hostname}}/graphql",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "6600",
 					"path": [
 						"graphql"
 					]
@@ -397,7 +367,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNTA4NTE0LCJleHAiOjE2MjM1MzAxMTQsImlhdCI6MTYyMzUwODUxNH0.nVikpjyj11xWSwHG5k2Kpp_GenJeEhEwzolH9ofAG3k",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFQSXVzZXJuYW1lIiwibmJmIjoxNjIzNTM4MDMwLCJleHAiOjE2MjM1NTk2MzAsImlhdCI6MTYyMzUzODAzMH0.K-iW2-DS0lVSL6HI_Ss060bejS67TEnnz04gFHvUHus",
 				"type": "string"
 			}
 		]
@@ -420,6 +390,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostname",
+			"value": "http://localhost:6600"
 		}
 	]
 }

@@ -71,9 +71,12 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <param name="movieApiData">MovieApiData instance with the movie information.</param>
 		/// <returns>The created movie.</returns>
-		[HttpPost]		
-		public async Task<MovieApiData> CreateMovie([FromBody] MovieApiData movieApiData) => 
-			await _client.CreateMovie(movieApiData).ConfigureAwait(false);		
+		[HttpPost]
+		public async Task<IActionResult> CreateMovie([FromBody] MovieApiData movieApiData)
+		{
+			var result = await _client.CreateMovie(movieApiData);
+			return checkAndReturnResult(result);
+		}
 
 		/// <summary>
 		/// Updates a movie entry.
@@ -81,7 +84,25 @@ namespace Movies.Server.Controllers
 		/// <param name="movieApiData">MovieApiData instance with the updated information.</param>
 		/// <returns>The updated movie.</returns>
 		[HttpPut]
-		public async Task<MovieApiData> UpdateMovie([FromBody] MovieApiData movieApiData) => 
-			await _client.UpdateMovie(movieApiData).ConfigureAwait(false);				
+		public async Task<IActionResult> UpdateMovie([FromBody] MovieApiData movieApiData)
+		{
+			var result = await _client.UpdateMovie(movieApiData);
+			return checkAndReturnResult(result);			
+		}
+
+
+		#region Helper methods
+		private IActionResult checkAndReturnResult(MovieApiData result)
+		{
+			if (string.IsNullOrWhiteSpace(result.Errors))
+			{
+				return Ok(result);
+			}
+			else
+			{
+				return BadRequest(new MovieApiData { Errors = result.Errors });
+			}
+		}
+		#endregion
 	}
 }
