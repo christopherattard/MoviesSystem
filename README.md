@@ -3,7 +3,7 @@
 
 ## Setup
 
-1) Open Visual Studio and download the repository from: https://github.com/christopherattard/MoviesSystem
+1) Open Visual Studio and clone or download the repository from: https://github.com/christopherattard/MoviesSystem
 
 2) Locate the *app-info.json* configuration file and add the following keys:
 	- "moviesPath" -> specify the full path of the movies.json file (for e.g. "*C:\\Projects\\MoviesSystem\\movies.json*");
