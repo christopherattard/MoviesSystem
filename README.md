@@ -13,14 +13,14 @@
 	- "apiUsername" -> specify the username for API authentication.
 	- "apiPassword" -> specify the password for API authentication.
 
-3) Update the following NuGet packages in Movies.Server project to the latest version:
+3) Update the following NuGet packages in *Movies.Server* project to the latest version:
 	- GraphQL
 	- GraphQL.Server.Transports.AspNetCore.NewtonsoftJson
 	
-4) Set Movies.Server project as the Startup project.
+4) Set *Movies.Server* project as the Startup project.
 
-5) Go to the Movies.Tests project and open the PreloadGrainStartupTaskTests.cs file. Update the MOVIES_PATH constant string to the path of the movies.json file.
-Run the Xunit unit tests found in this class. 	
+5) Go to the *Movies.Tests* project and open the *PreloadGrainStartupTaskTests.cs* file. Set the *MOVIES_PATH* constant string to the path of the movies.json file.
+Run the xUnit unit tests found in this class. 	
 
 6) Build and run the solution.
 
@@ -43,26 +43,28 @@ You can now run the other requests one by one and observe their responses.
 
 ## Features
 
+The MoviesSystem API consists of the following features:  
+
   1) A MovieController API containing:
-  - method for obtaining security token for API authentication;
-  - method for creating a movie entry;
-  - method for updating a movie entry.
+    - method for obtaining security token for API authentication;
+    - method for creating a movie entry;
+    - method for updating a movie entry.
 
   2) A MovieListController API containing:
-  - method for obtaining all movie entries;
-  - method for getting a specific movie detail;
-  - method for getting the top N movies by rating;
-  - method for getting movies that fall under the specified genres;
-  - method for obtaining movies that are asoociated with specified search words.
+    - method for obtaining all movie entries;
+    - method for getting a specific movie detail;
+    - method for getting the top N movies by rating;
+    - method for getting movies that fall under the specified genres;
+    - method for obtaining movies that are asoociated with specified search words.
 
   3) Documentation of the APIs is done with Swagger UI.
 
-  4) GraphQL queries for all the web methods defined in the MovieListController API. These can be executed from Postman.
+  4) GraphQL queries for all the web methods defined in the MovieListController API. These can be triggered from Postman.
 
-  5) GraphQL mutations for creating and updating a movie entry. These can be executed from Postman.
+  5) GraphQL mutations for creating and updating a movie entry. These can be triggered from Postman.
 
-  6) PreloadGrainStartupTask.cs class loads the contents of movies.json file in the MovieList grain on startup.
+  6) The PreloadGrainStartupTask.cs class loads the contents of movies.json file in the MovieList grain on startup.
 
   7) In-memory cache is implemented on the web methods defined in the MovieListController API.
 
-  8) A small Xunit unit test project defines some unit tests on the movies.json file.
+  8) A small xUnit test project defines some unit tests on the movies.json file.
