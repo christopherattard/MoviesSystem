@@ -41,77 +41,28 @@ authorization token.
 
 You can now run the other requests one by one and observe their responses.
 
-
-The application has the following functionality:
-
 ## Features
 
-- **Home**
-  - List top 5 highest rated movies
-- **Movies List**
-  - List Movies
-  - Search
-  - Filter by Genre
-- **Movie detail**
-  - Display selected movie detail information
-- **Create Movie**
-  - Create a new movie that can be retrieved in the movies list
-- **Update Movie**
-  - Update movies data.  
+  1) A MovieController API containing:
+  - method for obtaining security token for API authentication;
+  - method for creating a movie entry;
+  - method for updating a movie entry.
 
-### Technologies user
+  2) A MovieListController API containing:
+  - method for obtaining all movie entries;
+  - method for getting a specific movie detail;
+  = method for getting the top N movies by rating;
+  - method for getting movies that fall under the specified genres;
+  - method for obtaining movies that are asoociated with specified search words.
 
-- [ASP.NET (AspNetCore)](https://dotnet.microsoft.com/apps/aspnet) (3.1 or higher)
-- [Microsoft Orleans](https://dotnet.github.io/orleans/) (3 or higher)
-- [GraphQL](https://github.com/graphql-dotnet/graphql-dotnet) (3 or higher)
+  3) Documentation of the APIs is done with Swagger UI.
 
-*You may use any 3rd party libraries which can facilitates your development.*
+  4) GraphQL queries for all the web methods defined in the MovieListController API. These can be executed from Postman.
 
-### Content
+  5) GraphQL mutations for creating and updating a movie entry. These can be executed from Postman.
 
-- A complete working solution with GraphQL and Orleans pre-configured. You do not need to create the boilerplate code yourself
-- A `movies.json` with some mock data that can be used as your database (Although you might opt to use some other datasource)
+  6) PreloadGrainStartupTask.cs class loads the contents of movies.json file in the MovieList grain on startup.
 
-### Running the sample application
+  7) In-memory cache is implemented on the web methods defined in the MovieListController API.
 
-- Make sure the startup project is set to `Movies.Server`
-- The project has one controller `SampleDataController` that has to requests:
-  - [GET] http://localhost:6600/api/sampledata/{id}
-  - [POST] http://localhost:6600/api/sampledata/{id}
-- There is also a Graph Query for the Application `AppGraphQuery` and one GraphType `SampleDataGraphType`
-  - Accessible through: `http://localhost:6600/api/graphql`
-  - Sample query:
-      ```
-      query sampleData($id: String!) {
-          sample(id: $id) {
-              id,
-              name
-          }
-      }
-      ```
-- All the endpoints call one simple Grain called `SampleGrain` that holds the data on the Orleans server
-
-### Helpful links
-- [Orleans](https://dotnet.github.io/orleans/docs/grains/index.html)
-- [GraphQL](https://graphql.org/learn/)
-- [Docker](https://www.docker.com/)
-
-### Extra Credit
-
-- Pre-loading data in memory on App Start-up so it can be retrieved faster (using the required technologies)
-- Use of good design patterns that avoid bottle necks
-- Add Unit tests
-- Rudimentary UI
-- Dockerized application
-
-If you get the demo in good shape and have extra time, add your own flair and features.
-
-### Deliverable
-
-- Provide a working application
-- Provide source code in a public git such as github or Bitbucket repository
-- Provide markdown readme file
-  - General information about the app
-  - Provide steps how to build/launch your application
-
-Good luck!
+  8) A small Xunit unit test project defines some unit tests on the movies.json file.
