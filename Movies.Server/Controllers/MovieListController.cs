@@ -26,8 +26,7 @@ namespace Movies.Server.Controllers
 		/// Gets a list of all movies in the system.
 		/// </summary>
 		/// <returns>List of all movies.</returns>
-		[HttpGet("")]
-		[ResponseCache(Duration = 30)]
+		[HttpGet("")]		
 		public async Task<IActionResult> GetAllMovies()
 		{
 			var result = await _client.GetAllMovies();
@@ -39,8 +38,7 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <param name="movieKey">the key of the movie.</param>
 		/// <returns>The details of the movie.</returns>
-		[HttpGet("{movieKey}")]
-		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "movieKey" })]
+		[HttpGet("{movieKey}")]		
 		public async Task<IActionResult> GetMovieDetails(string movieKey)
 		{
 			var result = await _client.GetMovieDetails(movieKey);
@@ -52,8 +50,7 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <param name="genres">a string of genres separated by whitespaces or commas.</param>
 		/// <returns>List of associated movies.</returns>
-		[HttpGet("genre/{genres}")]
-		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "genres" })]
+		[HttpGet("genre/{genres}")]		
 		public async Task<IActionResult> GetMoviesByGenre(string genres)
 		{
 			var result = await _client.GetMoviesByGenre(genres);
@@ -65,8 +62,7 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <param name="search">a string of search keywords separated by whitespaces or commas.</param>
 		/// <returns>List of associated movies.</returns>
-		[HttpGet("search/{search}")]
-		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "search" })]
+		[HttpGet("search/{search}")]		
 		public async Task<IActionResult> GetMoviesBySearch(string search)
 		{
 			var result = await _client.GetMoviesBySearch(search);
@@ -78,8 +74,7 @@ namespace Movies.Server.Controllers
 		/// </summary>
 		/// <param name="topCount">the number of top movies to get.</param>
 		/// <returns>list of top movies.</returns>
-		[HttpGet("top/{topCount}")]
-		[ResponseCache(Duration = 30, VaryByQueryKeys = new string[] { "topCount" })]
+		[HttpGet("top/{topCount}")]		
 		public async Task<IActionResult> GetTopMovies(int topCount)
 		{
 			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
