@@ -46,16 +46,16 @@ You can now run the other requests one by one and observe their responses.
 The MoviesSystem API consists of the following features:  
 
   1) A MovieController API containing:
-    - method for obtaining security token for API authentication;
-    - method for creating a movie entry;
-    - method for updating a movie entry.
+  - method for obtaining security token for API authentication;
+  - method for creating a movie entry;
+  - method for updating a movie entry.
 
   2) A MovieListController API containing:
-    - method for obtaining all movie entries;
-    - method for getting a specific movie detail;
-    - method for getting the top N movies by rating;
-    - method for getting movies that fall under the specified genres;
-    - method for obtaining movies that are asoociated with specified search words.
+  - method for obtaining all movie entries;
+  - method for getting a specific movie detail;
+  - method for getting the top N movies by rating;
+  - method for getting movies that fall under the specified genres;
+  - method for obtaining movies that are asoociated with specified search words.
 
   3) Documentation of the APIs is done with Swagger UI.
 
