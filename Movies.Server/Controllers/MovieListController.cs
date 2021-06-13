@@ -56,7 +56,12 @@ namespace Movies.Server.Controllers
 		[HttpGet("{movieKey}")]		
 		public async Task<IActionResult> GetMovieDetails(string movieKey)
 		{
-			string cacheKey = $"details-{_appInfo.ApiUsername}";
+			if (string.IsNullOrWhiteSpace(movieKey))
+			{
+				return BadRequest("Invalid movie key.");
+			}
+
+			string cacheKey = $"details-{movieKey}-{_appInfo.ApiUsername}";
 
 			if (!_memoryCache.TryGetValue(cacheKey, out MovieApiData result))
 			{
@@ -75,7 +80,12 @@ namespace Movies.Server.Controllers
 		[HttpGet("genre/{genres}")]		
 		public async Task<IActionResult> GetMoviesByGenre(string genres)
 		{
-			string cacheKey = $"genre-{_appInfo.ApiUsername}";
+			if (string.IsNullOrWhiteSpace(genres))
+			{
+				return BadRequest();
+			}
+
+			string cacheKey = $"genre-{genres}-{_appInfo.ApiUsername}";
 
 			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
 			{
@@ -94,7 +104,12 @@ namespace Movies.Server.Controllers
 		[HttpGet("search/{search}")]		
 		public async Task<IActionResult> GetMoviesBySearch(string search)
 		{
-			string cacheKey = $"search-{_appInfo.ApiUsername}";
+			if (string.IsNullOrWhiteSpace(search))
+			{
+				return BadRequest();
+			}
+
+			string cacheKey = $"search-{search}-{_appInfo.ApiUsername}";
 
 			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
 			{
@@ -113,7 +128,12 @@ namespace Movies.Server.Controllers
 		[HttpGet("top/{topCount}")]		
 		public async Task<IActionResult> GetTopMovies(int topCount)
 		{
-			string cacheKey = $"top-{_appInfo.ApiUsername}";
+			if (topCount == 0)
+			{
+				return BadRequest();
+			}
+
+			string cacheKey = $"top-{topCount}-{_appInfo.ApiUsername}";
 
 			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
 			{
