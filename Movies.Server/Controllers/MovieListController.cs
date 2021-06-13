@@ -82,7 +82,7 @@ namespace Movies.Server.Controllers
 		{
 			if (string.IsNullOrWhiteSpace(genres))
 			{
-				return BadRequest();
+				return BadRequest("Invalid genres value.");
 			}
 
 			string cacheKey = $"genre-{genres}-{_appInfo.ApiUsername}";
@@ -106,7 +106,7 @@ namespace Movies.Server.Controllers
 		{
 			if (string.IsNullOrWhiteSpace(search))
 			{
-				return BadRequest();
+				return BadRequest("Invalid search value.");
 			}
 
 			string cacheKey = $"search-{search}-{_appInfo.ApiUsername}";
@@ -130,7 +130,7 @@ namespace Movies.Server.Controllers
 		{
 			if (topCount == 0)
 			{
-				return BadRequest();
+				return BadRequest("Invalid topCount value.");
 			}
 
 			string cacheKey = $"top-{topCount}-{_appInfo.ApiUsername}";
