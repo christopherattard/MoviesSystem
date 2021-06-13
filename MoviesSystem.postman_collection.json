@@ -140,14 +140,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{hostname}}/api/movielist/new-film-1",
+					"raw": "{{hostname}}/api/movielist/now-you-see-me",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
 						"api",
 						"movielist",
-						"new-film-1"
+						"now-you-see-me"
 					]
 				}
 			},
