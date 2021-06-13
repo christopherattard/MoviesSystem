@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Movies.Contracts;
 using Movies.Core;
 using Movies.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,11 +17,17 @@ namespace Movies.Server.Controllers
 	[Authorize]
 	public class MovieListController : Controller
 	{ 
-		private readonly IMovieListGrainClient _client;		
-		
-		public MovieListController(IMovieListGrainClient client, IAppInfo appInfo)
+		private readonly IMovieListGrainClient _client;
+		private readonly IAppInfo _appInfo;
+		private readonly IMemoryCache _memoryCache;
+		private readonly MemoryCacheEntryOptions _memoryCacheEntryOptions;
+
+		public MovieListController(IMovieListGrainClient client, IAppInfo appInfo, IMemoryCache memoryCache)
 		{
-			_client = client;			
+			_client = client;
+			_appInfo = appInfo;
+			_memoryCache = memoryCache;
+			_memoryCacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(15));
 		}
 
 		/// <summary>
@@ -28,8 +36,15 @@ namespace Movies.Server.Controllers
 		/// <returns>List of all movies.</returns>
 		[HttpGet("")]		
 		public async Task<IActionResult> GetAllMovies()
-		{
-			var result = await _client.GetAllMovies();
+		{			
+			string cacheKey = $"all-{_appInfo.ApiUsername}";
+
+			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
+			{
+				result = await _client.GetAllMovies();
+				_memoryCache.Set(cacheKey, result, _memoryCacheEntryOptions);
+			}
+			
 			return Ok(result);
 		}
 
@@ -41,7 +56,14 @@ namespace Movies.Server.Controllers
 		[HttpGet("{movieKey}")]		
 		public async Task<IActionResult> GetMovieDetails(string movieKey)
 		{
-			var result = await _client.GetMovieDetails(movieKey);
+			string cacheKey = $"details-{_appInfo.ApiUsername}";
+
+			if (!_memoryCache.TryGetValue(cacheKey, out MovieApiData result))
+			{
+				result = await _client.GetMovieDetails(movieKey);
+				_memoryCache.Set(cacheKey, result, _memoryCacheEntryOptions);
+			}
+			
 			return checkAndReturnResult(result);
 		}
 
@@ -53,7 +75,14 @@ namespace Movies.Server.Controllers
 		[HttpGet("genre/{genres}")]		
 		public async Task<IActionResult> GetMoviesByGenre(string genres)
 		{
-			var result = await _client.GetMoviesByGenre(genres);
+			string cacheKey = $"genre-{_appInfo.ApiUsername}";
+
+			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
+			{
+				result = await _client.GetMoviesByGenre(genres);
+				_memoryCache.Set(cacheKey, result, _memoryCacheEntryOptions);
+			}
+			
 			return Ok(result);
 		}
 
@@ -65,7 +94,14 @@ namespace Movies.Server.Controllers
 		[HttpGet("search/{search}")]		
 		public async Task<IActionResult> GetMoviesBySearch(string search)
 		{
-			var result = await _client.GetMoviesBySearch(search);
+			string cacheKey = $"search-{_appInfo.ApiUsername}";
+
+			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
+			{
+				result = await _client.GetMoviesBySearch(search);
+				_memoryCache.Set(cacheKey, result, _memoryCacheEntryOptions);
+			}
+			
 			return Ok(result);
 		}
 
@@ -77,7 +113,14 @@ namespace Movies.Server.Controllers
 		[HttpGet("top/{topCount}")]		
 		public async Task<IActionResult> GetTopMovies(int topCount)
 		{
-			var result = await _client.GetTopMovies(topCount).ConfigureAwait(false);
+			string cacheKey = $"top-{_appInfo.ApiUsername}";
+
+			if (!_memoryCache.TryGetValue(cacheKey, out List<MovieApiData> result))
+			{
+				result = await _client.GetTopMovies(topCount);
+				_memoryCache.Set(cacheKey, result, _memoryCacheEntryOptions);
+			}
+			
 			return Ok(result);
 		}
 
