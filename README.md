@@ -51,7 +51,7 @@ You can now run the other requests one by one and observe their responses.
   2) A MovieListController API containing:
   - method for obtaining all movie entries;
   - method for getting a specific movie detail;
-  = method for getting the top N movies by rating;
+  - method for getting the top N movies by rating;
   - method for getting movies that fall under the specified genres;
   - method for obtaining movies that are asoociated with specified search words.
 
